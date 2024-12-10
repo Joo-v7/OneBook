@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+
+// 헤더에서..?
 @Component
 public class JwtAuthFilter implements GlobalFilter, Ordered {
 
@@ -16,6 +18,7 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
         String authHeader = exchange.getRequest().getHeaders().getFirst("Authorization");
 
         // 토큰 형식 검사 예시
+        // ㅔ스트 주석
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
