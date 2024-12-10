@@ -1,0 +1,9 @@
+server:
+  shutdown: graceful
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 10s
+  security:
+    user:
+      name: admin
+      password: 1234
