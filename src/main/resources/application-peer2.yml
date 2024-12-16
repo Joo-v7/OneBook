@@ -3,3 +3,10 @@ server:
 eureka:
   instance:
     hostname: peer2
+  client:
+    service-url:
+      defaultZone: http://admin:1234@localhost:8761/eureka/
+  server:
+    enable-self-preservation: false
+    wait-time-in-ms-when-sync-empty: 0
+    peer-eureka-nodes-update-interval-ms: 30000  # 동기화 주기 (10초)
