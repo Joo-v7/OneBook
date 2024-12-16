@@ -4,16 +4,17 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: account-service
+        - id: auth-service
           uri: lb://ACCOUNT-SERVICE
           predicates:
-            - Path=/account/**
+            - Path=/auth/**
         - id: task-service
           uri: lb://TASK-SERVICE
           predicates:
             - Path=/task/**
       # 필요하면 필터 추가 가능
 
+# eureka client 설정
 eureka:
   client:
     register-with-eureka: true
@@ -29,3 +30,12 @@ server:
 logging:
   level:
     root: debug
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
