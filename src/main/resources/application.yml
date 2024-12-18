@@ -5,11 +5,11 @@ spring:
     gateway:
       routes:
         - id: auth-service
-          uri: lb://ACCOUNT-SERVICE
+          uri: lb://AUTH-SERVICE
           predicates:
             - Path=/auth/**
         - id: task-service
-          uri: lb://TASK-SERVICE
+          uri: lb://TASK-SERVICE-DEV
           predicates:
             - Path=/task/**
       # 필요하면 필터 추가 가능
@@ -20,12 +20,13 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
+#       dev로 바꿈
       defaultZone: http://admin:1234@localhost:8310/eureka
   instance:
     prefer-ip-address: true
 
 server:
-  port: 8080
+  port: 8210
 
 logging:
   level:
