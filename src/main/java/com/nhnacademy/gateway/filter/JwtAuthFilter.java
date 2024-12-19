@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
 
 
 // 헤더에서..?
-@Component
+//@Component
 public class JwtAuthFilter implements GlobalFilter, Ordered {
 
     @Override

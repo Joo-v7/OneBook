@@ -1,0 +1,11 @@
+### gate way to Eureka
+GET http://localhost:8210/auth/test
+
+
+### GET JWT
+GET http://admin:1234@localhost:8410/auth/jwt
+Content-Type: application/json
+
+{
+  "id" : "test"
+}
