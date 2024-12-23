@@ -10,12 +10,21 @@ import reactor.core.publisher.Mono;
 
 
 // 헤더에서..?
-//@Component
+@Component
 public class JwtAuthFilter implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String authHeader = exchange.getRequest().getHeaders().getFirst("Authorization");
+
+        /*
+        GateWay 확인용입니다.
+        확인 후 삭제해주세요.
+
+        if (exchange.getRequest().getPath().toString().equals("/task/test")) {
+            return chain.filter(exchange);
+        }
+        */
 
         // 토큰 형식 검사 예시
         // ㅔ스트 주석
