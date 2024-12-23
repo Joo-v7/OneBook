@@ -9,7 +9,7 @@ spring:
           predicates:
             - Path=/auth/**
         - id: task-service
-          uri: lb://TASK-SERVICE-DEV
+          uri: lb://TASK-SERVICE
           predicates:
             - Path=/task/**
       # 필요하면 필터 추가 가능
