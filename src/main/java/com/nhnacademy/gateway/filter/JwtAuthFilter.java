@@ -1,5 +1,10 @@
 package com.nhnacademy.gateway.filter;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwt;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.core.Ordered;
@@ -7,6 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
+
+import javax.crypto.SecretKey;
+import java.security.Key;
 
 /**
  * jwt token을 인가하는 filter임
@@ -19,15 +27,14 @@ import reactor.core.publisher.Mono;
 @Component
 public class JwtAuthFilter implements GlobalFilter, Ordered {
 
+
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String authHeader = exchange.getRequest().getHeaders().getFirst("Authorization");
 
-        // jwt token 받는거 확인
         if (exchange.getRequest().getPath().toString().equals("/auth/jwt")) {
             return chain.filter(exchange);
         }
-
 
         // 토큰 형식 검사 예시
         // 테스트 주석
@@ -35,22 +42,17 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
         }
-
         String token = authHeader.substring(7);
         // 실제 JWT 검증 로직 필요 (signature, 만료시간, 클레임 등)
         if(!validateToken(token)) {
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
         }
-
         // header에 추가하기
         exchange = exchange.mutate()
                 .request(builder -> builder.header("X-USER-ID", "test"))
                 .build();
 
-        // 여기에 하면 되려나
-
-        // 토큰 유효하면 다음 필터로 넘어감
         return chain.filter(exchange);
     }
 
@@ -62,8 +64,25 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
     private boolean validateToken(String token) {
         // TODO jwt 검증
         System.out.println("token : {}" + token);
+        // token 넘어오는거 확인했고
 
-        // JWT 검증 로직 구현 필요
+        SecretKey key = Keys.hmacShaKeyFor("Ny0pm2CWIAST07ElsTAVZgCqJKJd2bE9lpKyewuOhyyKoBApt1Ny0pm2CWIAST07ElsTAVZgCqJKJd2bE9lpKyewuOhyyKoBApt1".getBytes());
+        //
+        Claims body = Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+
+        if( body != null){
+            System.out.println("body !! " + body.toString());
+        }
+
+
+
+        // jwt token에 담겨있는 것들 대충 expired ,
+
         return true;
     }
 }

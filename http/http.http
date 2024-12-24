@@ -7,5 +7,5 @@ GET http://admin:1234@localhost:8210/auth/jwt?id=test
 
 ### Jwt 인가 받는거
 GET http://admin:1234@localhost:8210/auth/test
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IiIsImlhdCI6MTczNDk5OTc5NiwiZXhwIjoxNzM1MDAzMzk2fQ.t1m1ixukq4LYZfnd8QFXrTNZ1XD96gtk8Ny-BdQYhpE
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpZCI6InRlc3QiLCJpYXQiOjE3MzUwMjIxOTIsImV4cCI6MTczNTAyNTc5Mn0.4msiefppqh-fLdChvYXcBDPjtYZwdtn7i_QTvji1UxbDJxDPZh90PvM56h2FsX_JmBlv1ocyzt3LTBNf9CD-pg
 
