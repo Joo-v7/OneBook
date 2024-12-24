@@ -48,6 +48,7 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
                 .request(builder -> builder.header("X-USER-ID", "test"))
                 .build();
 
+        // 여기에 하면 되려나
 
         // 토큰 유효하면 다음 필터로 넘어감
         return chain.filter(exchange);
