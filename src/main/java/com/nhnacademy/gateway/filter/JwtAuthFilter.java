@@ -1,5 +1,7 @@
 package com.nhnacademy.gateway.filter;
 
+import com.nhnacademy.gateway.parser.OneBookJwtParser;
+import io.jsonwebtoken.*;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.core.Ordered;
@@ -8,26 +10,33 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-
-// 헤더에서..?
+/**
+ * jwt token을 인가하는 filter임
+ * /auth/login 은 jwt token을 발행할 수 있는지 확인하는 곳이라
+ * 필터링 안되게 해놓음
+ *
+ * 수정자 : 문영호
+ *
+ */
 @Component
 public class JwtAuthFilter implements GlobalFilter, Ordered {
+
+    private final OneBookJwtParser oneBookJwtParser;
+
+    public JwtAuthFilter(OneBookJwtParser oneBookJwtParser) {
+        this.oneBookJwtParser = oneBookJwtParser;
+    }
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String authHeader = exchange.getRequest().getHeaders().getFirst("Authorization");
 
-        /*
-        GateWay 확인용입니다.
-        확인 후 삭제해주세요.
-
-        if (exchange.getRequest().getPath().toString().equals("/task/test")) {
+        if (exchange.getRequest().getPath().toString().equals("/auth/jwt")) {
             return chain.filter(exchange);
         }
-        */
 
         // 토큰 형식 검사 예시
-        // ㅔ스트 주석
+        // 테스트 주석
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
@@ -35,12 +44,25 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
 
         String token = authHeader.substring(7);
         // 실제 JWT 검증 로직 필요 (signature, 만료시간, 클레임 등)
-        if(!validateToken(token)) {
-            exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
-            return exchange.getResponse().setComplete();
+
+        String id = null;
+        try{
+            id = validateToken(token);
+
+            String finalId = id;
+            exchange = exchange.mutate()
+                    .request(builder -> builder.header("X-USER-ID", finalId))
+                    .build();
+        }catch (ExpiredJwtException e) {
+            return handleUnauthorized(exchange, "JWT token is expired");
+        } catch (UnsupportedJwtException e) {
+            return handleUnauthorized(exchange, "JWT token is unsupported");
+        } catch (MalformedJwtException e) {
+            return handleUnauthorized(exchange, "Malformed JWT token");
+        } catch (Exception e) {
+            return handleUnauthorized(exchange, "Invalid JWT token");
         }
 
-        // 토큰 유효하면 다음 필터로 넘어감
         return chain.filter(exchange);
     }
 
@@ -49,8 +71,30 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
         return -1; // 우선순위를 높게 주고 싶다면 음수 값 지정
     }
 
-    private boolean validateToken(String token) {
-        // JWT 검증 로직 구현 필요
-        return true;
+    private String  validateToken(String token) {
+        // TODO jwt 검증
+        System.out.println("token : {}" + token);
+
+        Claims body = oneBookJwtParser.getJwtParser().
+                parseClaimsJws(token)
+                .getBody();
+
+
+        if( body != null){
+            System.out.println("body !! " + body.toString());
+            return (String)body.get("id");
+        }
+
+        throw new RuntimeException();
+    }
+
+    private Mono<Void> handleUnauthorized(ServerWebExchange exchange, String message){
+        exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+        exchange.getResponse().getHeaders().add("Content-Type", "application/json");
+        String response = "{\"error\": \"Unauthorized\", \"message\": \"" + message + "\"}";
+
+        return exchange.getResponse().writeWith(
+                Mono.just(exchange.getResponse().bufferFactory().wrap(response.getBytes()))
+        );
     }
 }

@@ -2,10 +2,10 @@
 GET http://localhost:8210/auth/test
 
 
-### GET JWT
-GET http://admin:1234@localhost:8410/auth/jwt
-Content-Type: application/json
+### GET JWT token  gateway port : 8210
+GET http://admin:1234@localhost:8210/auth/jwt?id=test
 
-{
-  "id" : "test"
-}
+### Jwt 인가 받는거
+GET http://admin:1234@localhost:8210/auth/test
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpZCI6InRlc3QiLCJpYXQiOjE3MzUxODc2MjEsImV4cCI6MTczNTE5MTIyMX0.nQVUBZ3QtfMINMpiRfCPItEYT_nhVJf5NdRHh4MeaAYGpSZO_9yDAqYyzv4jst_z6UfqZMwNBzQWLgQgtNshig
+
