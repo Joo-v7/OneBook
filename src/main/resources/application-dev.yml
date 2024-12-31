@@ -9,8 +9,8 @@ spring:
       password: 1234
 
 server:
-  port: 8300
-  shutdown: graceful
+  port: 8310
+  shutdown: IMMEDIATE
 
 eureka:
   instance:
@@ -20,7 +20,7 @@ eureka:
     fetch-registry: false
     service-url:
       defaultZone:
-        defaultZone: http://admin:1234@localhost:8300/eureka/
+        defaultZone: http://admin:1234@localhost:8310/eureka/
 #        - http://${spring.security.user.name}:${spring.security.user.password}@localhost:8761/eureka/
 #        - http://${spring.security.user.name}:${spring.security.user.password}@localhost:8762/eureka/
   # eviction-interval-timer-in-ms: 5000
