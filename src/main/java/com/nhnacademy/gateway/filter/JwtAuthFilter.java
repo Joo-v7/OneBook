@@ -18,7 +18,7 @@ import reactor.core.publisher.Mono;
  * 수정자 : 문영호
  *
  */
-@Component
+//@Component
 public class JwtAuthFilter implements GlobalFilter, Ordered {
 
     private final OneBookJwtParser oneBookJwtParser;
