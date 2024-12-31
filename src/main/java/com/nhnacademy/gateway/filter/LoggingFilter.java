@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
 
 
 // Gateway 레벨에서 HTTP 요청/응답을 실시간으로 기록하는 역할
-@Component
+//@Component
 public class LoggingFilter implements GlobalFilter, Ordered {
     private static final Logger logger = LoggerFactory.getLogger(LoggingFilter.class);
 

@@ -1,0 +1,12 @@
+server:
+  port: 8210
+
+# eureka client 설정
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://admin:1234@localhost:8310/eureka
+  instance:
+    prefer-ip-address: true

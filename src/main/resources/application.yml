@@ -1,6 +1,6 @@
 spring:
   application:
-    name: gateway
+    name: gateway-service
   cloud:
     gateway:
       routes:
@@ -14,18 +14,18 @@ spring:
             - Path=/task/**
       # 필요하면 필터 추가 가능
 
+server:
+  port: 8200
+
 # eureka client 설정
 eureka:
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://admin:1234@localhost:8310/eureka
+      defaultZone: http://admin:1234@localhost:8300/eureka
   instance:
     prefer-ip-address: true
-
-server:
-  port: 8210
 
 logging:
   level:
