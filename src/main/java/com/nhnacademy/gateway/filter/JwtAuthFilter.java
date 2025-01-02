@@ -18,7 +18,7 @@ import reactor.core.publisher.Mono;
  * 수정자 : 문영호
  *
  */
-//@Component
+@Component
 public class JwtAuthFilter implements GlobalFilter, Ordered {
 
     private final OneBookJwtParser oneBookJwtParser;
@@ -31,7 +31,12 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String authHeader = exchange.getRequest().getHeaders().getFirst("Authorization");
 
-        if (exchange.getRequest().getPath().toString().equals("/auth/jwt")) {
+        String path = exchange.getRequest().getPath().toString();
+
+        if (path.equals("/auth/jwt") ||
+                path.startsWith("/task/auth/members/") ||
+                path.startsWith("/task/members")
+        ) {
             return chain.filter(exchange);
         }
         // 토큰 형식 검사 예시
@@ -52,6 +57,7 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
             exchange = exchange.mutate()
                     .request(builder -> builder.header("X-MEMBER-ID", finalId))
                     .build();
+            // 여기서 java.lang.ClassCastException: class java.lang.Long cannot be cast to class java.lang.String (java.lang.Long and java.lang.String are in module java.base of loader 'bootstrap') 뜸
         }catch (ExpiredJwtException e) {
             return handleUnauthorized(exchange, "JWT token is expired");
         } catch (UnsupportedJwtException e) {
@@ -59,6 +65,7 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
         } catch (MalformedJwtException e) {
             return handleUnauthorized(exchange, "Malformed JWT token");
         } catch (Exception e) {
+            System.out.println("e :  "+ e.getMessage());
             return handleUnauthorized(exchange, "Invalid JWT token");
         }
 
@@ -81,7 +88,7 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
 
         if( body != null){
             System.out.println("body !! " + body.toString());
-            return (String)body.get("id");
+            return body.get("id").toString();
         }
 
         throw new RuntimeException();
