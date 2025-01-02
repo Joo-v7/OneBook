@@ -34,7 +34,6 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
         if (exchange.getRequest().getPath().toString().equals("/auth/jwt")) {
             return chain.filter(exchange);
         }
-
         // 토큰 형식 검사 예시
         // 테스트 주석
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
@@ -51,7 +50,7 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
 
             String finalId = id;
             exchange = exchange.mutate()
-                    .request(builder -> builder.header("X-USER-ID", finalId))
+                    .request(builder -> builder.header("X-MEMBER-ID", finalId))
                     .build();
         }catch (ExpiredJwtException e) {
             return handleUnauthorized(exchange, "JWT token is expired");
