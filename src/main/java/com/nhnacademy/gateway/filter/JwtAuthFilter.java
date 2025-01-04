@@ -34,8 +34,8 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
         String path = exchange.getRequest().getPath().toString();
 
         if (path.equals("/auth/jwt") ||
-                path.startsWith("/task/auth/members/") ||
-                path.startsWith("/task/members")
+                path.startsWith("/task/auth/members/")
+//                || path.startsWith("/task/members")
         ) {
             return chain.filter(exchange);
         }
