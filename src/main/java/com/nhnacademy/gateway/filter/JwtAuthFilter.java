@@ -46,12 +46,21 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
             return exchange.getResponse().setComplete();
         }
 
-        String token = authHeader.substring(7);
+        String token = authHeader.substring(7).trim();
         // 실제 JWT 검증 로직 필요 (signature, 만료시간, 클레임 등)
 
         String id = null;
+        String role = null;
         try{
             id = validateToken(token);
+            role = getRoleFromToken(token);
+
+            // 경로가 /admin 인데 jwt token의 role이 ADMIN이 아니면 접근 불가.
+            if(path.startsWith("/task/admin")) {
+                if(!role.equals("ADMIN")) {
+                    return handleUnauthorized(exchange, "Access denied for non-ADMIN role");
+                }
+            }
 
             String finalId = id;
             exchange = exchange.mutate()
@@ -75,6 +84,12 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
     @Override
     public int getOrder() {
         return -1; // 우선순위를 높게 주고 싶다면 음수 값 지정
+    }
+
+    // role 정보 추출
+    private String getRoleFromToken(String token) {
+        Claims claims = oneBookJwtParser.getJwtParser().parseClaimsJws(token).getBody();
+        return claims.get("role", String.class);
     }
 
     private String  validateToken(String token) {
