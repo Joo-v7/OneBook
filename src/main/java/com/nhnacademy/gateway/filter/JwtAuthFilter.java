@@ -42,7 +42,8 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
                 (path.startsWith("/task/members/status")) ||
                 (path.startsWith("/task/categories/topCategories")) ||
                 (path.startsWith("/task/categories")) ||
-                (path.startsWith("/task/tags/page"))
+                (path.startsWith("/task/tags/page")) ||
+                (path.startsWith("/task/coupon/issue/welcome"))
         ) {
             return chain.filter(exchange);
         }
