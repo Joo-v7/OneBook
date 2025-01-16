@@ -2,6 +2,7 @@ package com.nhnacademy.gateway.filter;
 
 import com.nhnacademy.gateway.parser.OneBookJwtParser;
 import io.jsonwebtoken.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.core.Ordered;
@@ -18,6 +19,7 @@ import reactor.core.publisher.Mono;
  * 수정자 : 문영호
  *
  */
+@Slf4j
 @Component
 public class JwtAuthFilter implements GlobalFilter, Ordered {
 
@@ -65,10 +67,8 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
             role = getRoleFromToken(token);
 
             // 경로가 /admin 인데 jwt token의 role이 ADMIN이 아니면 접근 불가.
-            if(path.startsWith("/task/admin")) {
-                if(!role.equals("ADMIN")) {
-                    return handleUnauthorized(exchange, "Access denied for non-ADMIN role");
-                }
+            if(path.startsWith("/task/admin") && !role.equals("ADMIN")) {
+                return handleUnauthorized(exchange, "Access denied for non-ADMIN role");
             }
 
             String finalId = id;
@@ -103,7 +103,7 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
 
     private String  validateToken(String token) {
         // TODO jwt 검증
-        System.out.println("token : {}" + token);
+        log.debug("token : {}", token);
 
         Claims body = oneBookJwtParser.getJwtParser().
                 parseClaimsJws(token)
