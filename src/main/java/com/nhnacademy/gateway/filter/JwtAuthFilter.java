@@ -41,6 +41,7 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
                 (path.equals("/task/members") && exchange.getRequest().getMethod().name().equals("POST")) ||
                 path.startsWith("/task/carts/") ||
                 path.startsWith("/task/book") ||
+                (path.startsWith("/task/stock")) ||
                 path.startsWith("/task/image") ||
                 (path.startsWith("/task/members/status")) ||
                 (path.startsWith("/task/categories/topCategories")) ||
