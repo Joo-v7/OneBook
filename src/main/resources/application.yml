@@ -27,9 +27,10 @@ eureka:
   instance:
     prefer-ip-address: true
 
+
 logging:
   level:
-    root: debug
+    root: info
 
 management:
   endpoints:
