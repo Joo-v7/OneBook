@@ -41,6 +41,7 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
                 (path.equals("/task/members") && exchange.getRequest().getMethod().name().equals("POST")) ||
                 path.startsWith("/task/carts/") ||
                 path.startsWith("/task/book") ||
+                (path.startsWith("/task/stock")) ||
                 path.startsWith("/task/image") ||
                 (path.startsWith("/task/members/status")) ||
                 (path.startsWith("/task/categories/topCategories")) ||
@@ -83,7 +84,7 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
         } catch (MalformedJwtException e) {
             return handleUnauthorized(exchange, "Malformed JWT token");
         } catch (Exception e) {
-            System.out.println("e :  "+ e.getMessage());
+            log.info("e :  {}", e.getMessage());
             return handleUnauthorized(exchange, "Invalid JWT token");
         }
 
@@ -111,7 +112,6 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
 
 
         if( body != null){
-            System.out.println("body !! " + body.toString());
             return body.get("id").toString();
         }
 
