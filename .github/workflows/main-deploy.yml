@@ -48,4 +48,5 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script_stop: true
-          script: /home/nhnacademy/onebook/main/startup/gateway_startup.sh
+          script: /home/be8/be8-team1/onebook/startup/gateway_startup.sh
+
