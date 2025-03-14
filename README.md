@@ -173,6 +173,12 @@ https://www.erdcloud.com/d/PoKgPpyiHAvGwdsNA
 ---
 
 ## 개인별 구현 상세내역
+# 김주혁
+- 로그인
+- 회원가입
+- JWT 기반 인증/인가
+- 장바구니
+- Nginx를 활용한 프론트 서버 이중화
 
 ---
 ## ⚙ 기술 스택
