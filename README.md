@@ -81,11 +81,6 @@
 
 ---
 
-## CI/CD
-![CICD_test](https://github.com/user-attachments/assets/d0719e13-070d-4bb2-b37d-8f9a34974b66)
-
----
-
 ### Port
 <table>
   <tr>
@@ -151,6 +146,12 @@
     <td>10117</td>
   </tr>
 </table>
+
+
+---
+
+## CI/CD
+![CICD_test](https://github.com/user-attachments/assets/d0719e13-070d-4bb2-b37d-8f9a34974b66)
 
 ---
 
