@@ -155,9 +155,11 @@ https://www.erdcloud.com/d/PoKgPpyiHAvGwdsNA
 ![intellijidea](https://img.shields.io/badge/intellij-000000?style=flat&logo=intellijidea&logoColor=white)
 ![Git](https://img.shields.io/badge/Git-F05032?style=flat&logo=Git&logoColor=white)
 ![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white)
-##
-- 개발기간 : 2024.12.02 ~ 2025.01.24
+
 
 ## front template
 
 [front template 주황색 ](https://wpthemesgrid.com/themes/eshop/index4.html)
+
+##
+- 개발기간 : 2024.12.02 ~ 2025.01.24
