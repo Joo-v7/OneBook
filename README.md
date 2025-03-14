@@ -51,9 +51,9 @@
 >
 >[FRONT](https://github.com/nhnacademy-be8-OneBook/Onebook-frontapi)
 >
->[AUTHENTICATION](https://github.com/nhnacademy-be8-OneBook/Onebook-accountapi)
->
 >[TASK](https://github.com/nhnacademy-be8-OneBook/Onebook-taskapi)
+>
+>[AUTHENTICATION](https://github.com/nhnacademy-be8-OneBook/Onebook-accountapi)
 >
 >[GATEWAY](https://github.com/nhnacademy-be8-OneBook/Onebook-gateway)
 >
