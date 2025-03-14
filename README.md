@@ -7,6 +7,8 @@
 > 2024.12.03. ~ 2025.01.24
 > 
 > Java 기반의 Spring Framework를 활용하여, 온라인에서 도서를 쉽게 구매할 수 있는 직관적이고 종합적인 인터넷 서점 쇼핑몰
+> 
+> [Github Organization](https://github.com/nhnacademy-be8-OneBook)
 
 
 ## 팀원
