@@ -50,9 +50,13 @@
 #  OneBook_Repository
 
 [FRONT](https://github.com/nhnacademy-be8-OneBook/Onebook-frontapi)
+
 [AUTHENTICATION](https://github.com/nhnacademy-be8-OneBook/Onebook-accountapi)
+
 [TASK](https://github.com/nhnacademy-be8-OneBook/Onebook-taskapi)
+
 [GATEWAY](https://github.com/nhnacademy-be8-OneBook/Onebook-gateway)
+
 [EUREKA](https://github.com/nhnacademy-be8-OneBook/Onebook-eureka)
 
 ## 프로젝트 아키텍처
