@@ -48,16 +48,16 @@
 ---
 
 #  OneBook_Repository
-
-[FRONT](https://github.com/nhnacademy-be8-OneBook/Onebook-frontapi)
-
-[AUTHENTICATION](https://github.com/nhnacademy-be8-OneBook/Onebook-accountapi)
-
-[TASK](https://github.com/nhnacademy-be8-OneBook/Onebook-taskapi)
-
-[GATEWAY](https://github.com/nhnacademy-be8-OneBook/Onebook-gateway)
-
-[EUREKA](https://github.com/nhnacademy-be8-OneBook/Onebook-eureka)
+>
+>[FRONT](https://github.com/nhnacademy-be8-OneBook/Onebook-frontapi)
+>
+>[AUTHENTICATION](https://github.com/nhnacademy-be8-OneBook/Onebook-accountapi)
+>
+>[TASK](https://github.com/nhnacademy-be8-OneBook/Onebook-taskapi)
+>
+>[GATEWAY](https://github.com/nhnacademy-be8-OneBook/Onebook-gateway)
+>
+>[EUREKA](https://github.com/nhnacademy-be8-OneBook/Onebook-eureka)
 
 ## 프로젝트 아키텍처
 ![Image](https://github.com/user-attachments/assets/43eda360-4f79-4c9e-9d82-c9d303e81bfb)
