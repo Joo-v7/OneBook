@@ -37,13 +37,24 @@
 
 ---
 
-<!-- #  OneBook_Repository -->
+## 나의 구현 상세내역
+- 회원 관련(회원, 등급, 역할 ...) api/view 담당
+- 장바구니 api/view 담당
+- 로그인
+- 회원가입
+- JWT 기반 인증/인가
+- 장바구니
+- Nginx를 활용한 프론트 서버 이중화
 
-<!-- - [FRONT](https://github.com/nhnacademy-be8-OneBook/Onebook-frontapi) -->
-<!-- - [AUTHENTICATION](https://github.com/nhnacademy-be8-OneBook/Onebook-accountapi) -->
-<!-- - [TASK](https://github.com/nhnacademy-be8-OneBook/Onebook-taskapi) -->
-<!-- - [GATEWAY](https://github.com/nhnacademy-be8-OneBook/Onebook-gateway) -->
-<!-- - [EUREKA](https://github.com/nhnacademy-be8-OneBook/Onebook-eureka) -->
+---
+
+#  OneBook_Repository
+
+[FRONT](https://github.com/nhnacademy-be8-OneBook/Onebook-frontapi)
+[AUTHENTICATION](https://github.com/nhnacademy-be8-OneBook/Onebook-accountapi)
+[TASK](https://github.com/nhnacademy-be8-OneBook/Onebook-taskapi)
+[GATEWAY](https://github.com/nhnacademy-be8-OneBook/Onebook-gateway)
+[EUREKA](https://github.com/nhnacademy-be8-OneBook/Onebook-eureka)
 
 ## 프로젝트 아키텍처
 ![Image](https://github.com/user-attachments/assets/43eda360-4f79-4c9e-9d82-c9d303e81bfb)
@@ -169,16 +180,6 @@ https://www.erdcloud.com/d/PoKgPpyiHAvGwdsNA
 
 - 정적 코드 분석 도구인 `SonarQube`를 활용
 - 목표 : Coverage 80%
-
----
-
-## 개인별 구현 상세내역
-# 김주혁
-- 로그인
-- 회원가입
-- JWT 기반 인증/인가
-- 장바구니
-- Nginx를 활용한 프론트 서버 이중화
 
 ---
 ## ⚙ 기술 스택
