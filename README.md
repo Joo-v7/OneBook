@@ -49,11 +49,11 @@
 
 #  OneBook_Repository
 >
->[FRONT](https://github.com/nhnacademy-be8-OneBook/Onebook-frontapi)
+>[FRONT(프론트엔드)](https://github.com/nhnacademy-be8-OneBook/Onebook-frontapi)
 >
->[TASK](https://github.com/nhnacademy-be8-OneBook/Onebook-taskapi)
+>[TASK(백엔드)](https://github.com/nhnacademy-be8-OneBook/Onebook-taskapi)
 >
->[AUTHENTICATION](https://github.com/nhnacademy-be8-OneBook/Onebook-accountapi)
+>[AUTHENTICATION(인증 서버)](https://github.com/nhnacademy-be8-OneBook/Onebook-accountapi)
 >
 >[GATEWAY](https://github.com/nhnacademy-be8-OneBook/Onebook-gateway)
 >
