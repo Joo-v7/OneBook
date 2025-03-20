@@ -1,0 +1,11 @@
+### gate way to Eureka
+GET http://localhost:8210/auth/test
+
+
+### GET JWT token  gateway port : 8210
+GET http://admin:1234@localhost:8210/auth/jwt?id=hong123
+
+### Jwt 인가 받는거
+GET http://admin:1234@localhost:8210/auth/test
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpZCI6InRlc3QiLCJpYXQiOjE3MzU1MTgwMTUsImV4cCI6MTc0MDcwMjAxNX0.nb3t93PNYHUozdeByb0CQ_bJSb4yM8VopWjk3vQeD8HpvJEcWu37DHvRM8rdJLd7lM8lORSRhPDUlpRdvNp_xA
+
