@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+	<!-- Meta Tag -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name='copyright' content=''>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Title Tag  -->
+    <title>1nebook - 휴면 인증</title>
+	<!-- Favicon -->
+	<link rel="icon" type="image/png" href="/images/favicon.png">
+	<!-- Web Font -->
+	<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+	
+	<!-- StyleSheet -->
+	
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="/css/bootstrap.css">
+	<!-- Magnific Popup -->
+    <link rel="stylesheet" href="/css/magnific-popup.min.css">
+	<!-- Font Awesome -->
+    <link rel="stylesheet" href="/css/font-awesome.css">
+	<!-- Fancybox -->
+	<link rel="stylesheet" href="/css/jquery.fancybox.min.css">
+	<!-- Themify Icons -->
+    <link rel="stylesheet" href="/css/themify-icons.css">
+	<!-- Jquery Ui -->
+    <link rel="stylesheet" href="/css/jquery-ui.css">
+	<!-- Nice Select CSS -->
+    <link rel="stylesheet" href="/css/niceselect.css">
+	<!-- Animate CSS -->
+    <link rel="stylesheet" href="/css/animate.css">
+	<!-- Flex Slider CSS -->
+    <link rel="stylesheet" href="/css/flex-slider.min.css">
+	<!-- Owl Carousel -->
+    <link rel="stylesheet" href="/css/owl-carousel.css">
+	<!-- Slicknav -->
+    <link rel="stylesheet" href="/css/slicknav.min.css">
+	
+	<!-- Eshop StyleSheet -->
+	<link rel="stylesheet" href="/css/reset.css">
+	<link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+
+	<!-- Color CSS -->
+	<link rel="stylesheet" href="/css/color/color1.css">
+	<!--<link rel="stylesheet" href="/css/color/color2.css">-->
+	<!--<link rel="stylesheet" href="/css/color/color3.css">-->
+	<!--<link rel="stylesheet" href="/css/color/color4.css">-->
+	<!--<link rel="stylesheet" href="/css/color/color5.css">-->
+	<!--<link rel="stylesheet" href="/css/color/color6.css">-->
+	<!--<link rel="stylesheet" href="/css/color/color7.css">-->
+	<!--<link rel="stylesheet" href="/css/color/color8.css">-->
+	<!--<link rel="stylesheet" href="/css/color/color9.css">-->
+	<!--<link rel="stylesheet" href="/css/color/color10.css">-->
+	<!--<link rel="stylesheet" href="/css/color/color11.css">-->
+	<!--<link rel="stylesheet" href="/css/color/color12.css">-->
+
+	<link rel="stylesheet" href="#" id="colors">
+	
+</head>
+<body class="js">
+
+	
+
+		
+		<div th:insert="~{fragments/header :: header}"></div>
+		
+		<!-- Breadcrumbs -->
+		<div class="breadcrumbs">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="bread-inner">
+							<ul class="bread-list">
+								<li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
+								<li class="active"><a href="blog-single.html">Shop Grid</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Breadcrumbs -->
+
+				<div class="container" style="margin-top: 60px">
+<!--					마이 페이지 본문-->
+					<div class="col-lg-9 col-md-8 col-12">
+<!--						Start 두레이 인증 content-->
+						<div class="col-12" style="display: flex; justify-content: space-between; padding:0;">
+							<div>
+								<h2 class="d-inline">휴면 해제</h2>
+								<span class="d-inline" style="color:#bbbbbd;">  최근 3개월 동안 로그인하지 않은 계정은 휴면 상태로 전환됩니다.</span>
+							</div>
+						</div>
+
+						<hr>
+
+						<div class="col-12" style="text-align: center">
+							<p>휴면 계정 해제를 위해 Dooray Message 인증이 필요합니다.</p>
+							<p><strong>인증번호 받기</strong>를 클릭해주세요.</p>
+							<p>(인증번호는 발급 후 3분후에 다시 요청할 수 있습니다)</p>
+						</div>
+
+						<hr>
+
+						<div class="col-12" style="padding: 0; border: 1px solid #b4bcbc; border-radius: 5px">
+							<div style="padding:35px; align-content: center" >
+
+								<!-- 인증번호 받기 버튼 -->
+								<div class="form-group" style="text-align: center; margin:0;">
+									<button class="btn" id="sendAuthCode">인증번호 받기</button>
+								</div>
+
+								<!-- 인증번호 입력 섹션 -->
+								<div id="authSection" class="form-group" style="text-align: center; margin:0; display:none">
+									<input type="text" id="code" name="code" style="width:200px; height:42px" placeholder=" 인증번호를 입력하세요" />
+									<button class="btn" id="verifyAuthCode">제출하기</button>
+									<!-- 결과 메시지 -->
+									<div id="resultMessage" style="font-weight: bold;"></div>
+									<!-- 3분 타이머 -->
+									<div id="timer"></div>
+								</div>
+
+								<!-- 아이디 입력 -->
+								<form action="/dormant-account/reactivate" method="GET" id="wakeUp" style="display: none">
+									<div class="form-group" style="text-align: center; margin:0;">
+										<button class="btn" type="submit">휴면 해제</button>
+									</div>
+								</form>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+						<br/>
+						<br/>
+						<br/>
+<!--					END	두레이 인증 content-->
+
+	<!--                    loginDoorayAuthentication에 사용된 js -->
+	<script src="/js/member/loginDoorayAuthentication.js"></script>
+
+
+					</div>
+				</div>
+			</div>
+	</section>
+
+	<div th:replace="~{fragments/footer :: footer}"></div>
+	
+    <!-- Jquery -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery-migrate-3.0.0.js"></script>
+	<script src="/js/jquery-ui.min.js"></script>
+	<!-- Popper JS -->
+	<script src="/js/popper.min.js"></script>
+	<!-- Bootstrap JS -->
+	<script src="/js/bootstrap.min.js"></script>
+	<!-- Color JS -->
+	<script src="/js/colors.js"></script>
+	<!-- Slicknav JS -->
+	<script src="/js/slicknav.min.js"></script>
+	<!-- Owl Carousel JS -->
+	<script src="/js/owl-carousel.js"></script>
+	<!-- Magnific Popup JS -->
+	<script src="/js/magnific-popup.js"></script>
+	<!-- Fancybox JS -->
+	<script src="/js/facnybox.min.js"></script>
+	<!-- Waypoints JS -->
+	<script src="/js/waypoints.min.js"></script>
+	<!-- Countdown JS -->
+	<script src="/js/finalcountdown.min.js"></script>
+	<!-- Nice Select JS -->
+	<script src="/js/nicesellect.js"></script>
+	<!-- Ytplayer JS -->
+	<script src="/js/ytplayer.min.js"></script>
+	<!-- Flex Slider JS -->
+	<script src="/js/flex-slider.js"></script>
+	<!-- ScrollUp JS -->
+	<script src="/js/scrollup.js"></script>
+	<!-- Onepage Nav JS -->
+	<script src="/js/onepage-nav.min.js"></script>
+	<!-- Easing JS -->
+	<script src="/js/easing.js"></script>
+	<!-- Active JS -->
+	<script src="/js/active.js"></script>
+</body>
+</html>

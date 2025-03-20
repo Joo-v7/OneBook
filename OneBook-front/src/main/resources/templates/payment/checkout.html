@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="https://static.toss.im/icons/png/4x/icon-toss-logo.png" />
+    <link rel="stylesheet" type="text/css" href="/toss/style.css"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1neBook - Toss 결제하기</title>
+    <script src="https://js.tosspayments.com/v2/standard"></script>
+</head>
+
+<body>
+<div class="wrapper">
+    <div class="box_section" style="padding: 40px 30px 50px 30px; margin-top: 30px; margin-bottom: 50px">
+        <div id="payment-method"></div>
+        <div id="agreement"></div>
+
+        <div class="checkable typography--p" style="margin-top:20px;">
+            <label for="point-box" class="checkable__label typography--regular">
+                <input id="point-box" class="checkable__input" type="checkbox" aria-checked="false" />
+                <span class="checkable__label-text">포인트 사용하기</span>
+            </label>
+        </div>
+
+        <div id="point-section" style="display:none; margin-left: 25px; margin-top: 10px;">
+            <div>보유 포인트: <span id="user-point">0</span></div>
+            <div style="margin-top: 5px;">
+                <label for="usePointInput">사용할 포인트: </label>
+                <input type="text" id="usePointInput" value="0" />
+                <button type="button" id="use-all-button">전액 사용</button>
+            </div>
+        </div>
+
+        <div style="margin-top: 20px;">
+            최종 결제금액: <span id="final-amount-display">0</span>
+        </div>
+
+        <div class="result wrapper">
+            <button class="button" id="payment-button" style="margin-top: 30px">
+                결제하기
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 3자리마다 콤마를 찍어주는 유틸 함수
+    function formatNumberWithComma(num) {
+        if (!num && num !== 0) return "";
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    // 숫자만 추출해서 정수로 변환
+    function parseNumber(str) {
+        return parseInt(str.replace(/,/g, ""), 10) || 0;
+    }
+
+    async function main() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const orderIdParam = urlParams.get("orderId");
+
+        // 1) 체크아웃 정보(GET)
+        let checkoutInfo = {};
+        try {
+            const res = await fetch(`/front/payments/checkout-info/${orderIdParam}`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include"
+            });
+            if (!res.ok) throw new Error("체크아웃 정보 조회 실패");
+            checkoutInfo = await res.json();
+        } catch (error) {
+            console.error(error);
+            alert("결제 정보 불러오기 실패");
+            return;
+        }
+
+        let orderAmount = checkoutInfo.orderAmount || 0;
+        let maxPoint = checkoutInfo.userPoint || 0;
+
+        // 2) 토스 위젯 초기화
+        const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
+        const tossPayments = TossPayments(clientKey);
+        const customerKey = checkoutInfo.memberId;
+        const widgets = tossPayments.widgets({ customerKey });
+
+        // 초기 금액 설정 및 위젯 렌더링
+        await widgets.setAmount({ currency: "KRW", value: orderAmount });
+        await widgets.renderPaymentMethods({ selector: "#payment-method", variantKey: "DEFAULT" });
+        await widgets.renderAgreement({ selector: "#agreement", variantKey: "AGREEMENT" });
+
+        // 3) 포인트 관련 로직 및 실시간 결제금액 업데이트
+        const pointCheck = document.getElementById("point-box");
+        const pointSection = document.getElementById("point-section");
+        const userPointEl = document.getElementById("user-point");
+        const usePointInput = document.getElementById("usePointInput");
+        const finalAmountDisplay = document.getElementById("final-amount-display");
+        const useAllButton = document.getElementById("use-all-button");
+
+        // 보유 포인트 표시(콤마, 원 X)
+        userPointEl.textContent = formatNumberWithComma(maxPoint);
+        // 결제금액 표시(콤마 + "원")
+        finalAmountDisplay.textContent = formatNumberWithComma(orderAmount) + "원";
+
+        pointCheck.addEventListener("change", () => {
+            if (pointCheck.checked) {
+                pointSection.style.display = "block";
+                usePointInput.value = "0";
+                finalAmountDisplay.textContent = formatNumberWithComma(orderAmount) + "원";
+                widgets.setAmount({ currency: "KRW", value: orderAmount });
+            } else {
+                pointSection.style.display = "none";
+                usePointInput.value = "0";
+                finalAmountDisplay.textContent = formatNumberWithComma(orderAmount) + "원";
+                widgets.setAmount({ currency: "KRW", value: orderAmount });
+            }
+        });
+
+        // 사용 포인트 Input 이벤트
+        usePointInput.addEventListener("input", () => {
+            // , 제거 후 숫자로 변환
+            let inputVal = parseNumber(usePointInput.value);
+
+            // 사용 포인트 최대 한도 조정
+            if (inputVal > maxPoint) {
+                inputVal = maxPoint;
+            }
+            if (inputVal > orderAmount) {
+                inputVal = orderAmount;
+            }
+
+            // 다시 콤마 붙여서 input에 표시
+            usePointInput.value = formatNumberWithComma(inputVal);
+
+            // 실시간 최종 결제금액 업데이트
+            const newFinalAmount = orderAmount - inputVal;
+            finalAmountDisplay.textContent = formatNumberWithComma(newFinalAmount) + "원";
+            widgets.setAmount({ currency: "KRW", value: newFinalAmount });
+        });
+
+        useAllButton.addEventListener("click", () => {
+            let toUse;
+            // 결제 금액이 보유 포인트보다 작으면 결제금액만큼, 더 크면 보유포인트 전액
+            if (orderAmount < maxPoint) {
+                toUse = orderAmount;
+            } else {
+                toUse = maxPoint;
+            }
+
+            // input에 콤마 찍어주기
+            usePointInput.value = formatNumberWithComma(toUse);
+
+            // 수동으로 input 이벤트 트리거(실시간 업데이트)
+            const event = new Event("input", { bubbles: true });
+            usePointInput.dispatchEvent(event);
+        });
+
+        document.getElementById("payment-button").addEventListener("click", async () => {
+            // 최종 사용 포인트(, 제거 후 숫자로)
+            const usedPoint = pointCheck.checked ? parseNumber(usePointInput.value) : 0;
+
+            // 결제 생성(READY) or 전액 포인트 결제(DONE)
+            let paymentResponse;
+            try {
+                const response = await fetch(`/front/payments/${orderIdParam}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ usedPoint, currency: "KRW" })
+                });
+                if (!response.ok) throw new Error("결제 생성 실패");
+                paymentResponse = await response.json();
+            } catch (err) {
+                console.error(err);
+                alert("결제 생성 중 오류가 발생했습니다.");
+                return;
+            }
+
+            const finalPayAmount = paymentResponse.totalAmount;
+            // UI에 최신 금액 표시
+            finalAmountDisplay.textContent = formatNumberWithComma(finalPayAmount) + "원";
+
+            console.log("서버 계산 결제 금액:", finalPayAmount);
+            const paymentStatus = paymentResponse.status;
+
+            // 전액 포인트 결제 완료 시, 바로 success 이동
+            if (finalPayAmount === 0 && paymentStatus === "DONE") {
+                alert("포인트 전액 결제 완료!");
+                // 추가 결제 창 없이 success 페이지로 이동
+                window.location.href = `/success?paymentKey=${encodeURIComponent(paymentResponse.paymentKey || "")}&orderId=${encodeURIComponent(orderIdParam)}&amount=${encodeURIComponent(finalPayAmount)}`;
+                return;
+            }
+
+            // 최종 결제금액이 남아있으면 토스 결제창
+            try {
+                await widgets.setAmount({ currency: "KRW", value: finalPayAmount });
+            } catch (err) {
+                console.error("금액 설정 실패:", err);
+                return;
+            }
+
+            try {
+                await widgets.requestPayment({
+                    orderId: checkoutInfo.orderId + "_" + generateRandomString(),
+                    orderName: checkoutInfo.orderName || "주문 상품",
+                    successUrl: window.location.origin + "/success",
+                    failUrl: window.location.origin + "/fail",
+                    customerName: checkoutInfo.ordererName,
+                    customerMobilePhone: checkoutInfo.ordererPhone
+                });
+            } catch (err) {
+                console.error("결제 요청 중 오류:", err);
+            }
+        });
+    }
+
+    function generateRandomString() {
+        return Math.random().toString(36).substring(2,10);
+    }
+
+    main();
+</script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8"/>
+    <link rel="icon" href="https://static.toss.im/icons/png/4x/icon-toss-logo.png"/>
+    <link rel="stylesheet" type="text/css" href="/toss/style.css"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>1nebook - 결제 성공</title>
+</head>
+<body>
+<div class="box_section" style="width:600px">
+    <img width="100px" src="https://static.toss.im/illusts/check-blue-spot-ending-frame.png"/>
+    <h2>결제를 완료했어요</h2>
+
+    <div class="p-grid typography--p" style="margin-top:50px">
+        <div class="p-grid-col text--left"><b>결제금액</b></div>
+        <div class="p-grid-col text--right" id="amount"></div>
+    </div>
+    <div class="p-grid typography--p" style="margin-top:10px">
+        <div class="p-grid-col text--left"><b>주문번호</b></div>
+        <div class="p-grid-col text--right" id="orderId"></div>
+    </div>
+    <div class="p-grid typography--p" style="margin-top:10px">
+        <div class="p-grid-col text--left"><b>paymentKey</b></div>
+        <div class="p-grid-col text--right" id="paymentKey" style="white-space:initial;width:250px"></div>
+    </div>
+    <div class="p-grid" style="margin-top:30px">
+        <button class="button p-grid-col5"
+                onclick="location.href='https://docs.tosspayments.com/guides/v2/payment-widget/integration';">
+            연동 문서
+        </button>
+        <button class="button p-grid-col5" onclick="location.href='https://discord.gg/A4fRFXQhRu';"
+                style="background-color: #e8f3ff; color: #1b64da">
+            실시간 문의
+        </button>
+    </div>
+    <!-- 새 버튼 추가 -->
+    <div class="p-grid" style="margin-top:10px">
+        <button class="button p-grid-col5"
+                onclick="location.href='/'">
+            홈으로 돌아가기
+        </button>
+        <button class="button p-grid-col5"
+                onclick="location.href='/my/orders';"
+                style="background-color: #e8f3ff; color: #1b64da">
+            주문목록 조회하기
+        </button>
+    </div>
+</div>
+
+<div class="box_section" style="width:600px;text-align:left">
+    <b>Response Data :</b>
+    <div id="response" style="white-space:initial"></div>
+</div>
+
+<script>
+    // 숫자를 3자리마다 콤마로 포맷팅하는 함수
+    function formatNumberWithComma(num) {
+        if (!num && num !== 0) return "";
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    // 1) URL 파라미터
+    const urlParams = new URLSearchParams(window.location.search);
+    const paymentKeyParam = urlParams.get("paymentKey");
+    const orderIdParam = urlParams.get("orderId");
+    const amountParam = urlParams.get("amount") || "0"; // 문자열
+
+    // 2) 화면 표시
+    const paymentKeyElement = document.getElementById("paymentKey");
+    const orderIdElement = document.getElementById("orderId");
+    const amountElement = document.getElementById("amount");
+
+    paymentKeyElement.textContent = paymentKeyParam;
+    orderIdElement.textContent = orderIdParam;
+    // 금액에 콤마를 찍고 "원"을 붙여서 표시
+    amountElement.textContent = formatNumberWithComma(Number(amountParam)) + "원";
+
+    // 3) 금액 0원이면 confirmPayment() 호출 스킵
+    async function confirmPayment() {
+        if (Number(amountParam) === 0) {
+            console.log("[SUCCESS PAGE] 전액 포인트 결제 → 이미 DONE, confirmPayment() 생략.");
+            return;
+        }
+
+        let requestData = {
+            paymentKey: paymentKeyParam,
+            orderId: orderIdParam,
+            amount: amountParam
+        };
+
+        try {
+            const res = await fetch("/front/payments/toss/confirm", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(requestData),
+            });
+
+            const json = await res.json();
+            if (!res.ok) {
+                console.error("결제 승인 실패", json);
+                const failMessage = encodeURIComponent(json.message || 'fail');
+                const failCode = encodeURIComponent(json.code || 'fail');
+                window.location.href = `/fail?message=${failMessage}&code=${failCode}`;
+                return null;
+            }
+            return json;
+        } catch (error) {
+            console.error("결제 승인 요청 중 오류:", error);
+        }
+    }
+
+    // 4) 함수 호출
+    confirmPayment().then((data) => {
+        if(!data) return;
+        document.getElementById("response").innerHTML =
+            "<pre>" + JSON.stringify(data, null, 4) + "</pre>";
+    });
+</script>
+</body>
+</html>

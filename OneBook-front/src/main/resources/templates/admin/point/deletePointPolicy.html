@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <!-- Meta Tag -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name='copyright' content=''>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Title Tag  -->
+    <title>Eshop - eCommerce HTML5 Template.</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <!-- Web Font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+
+    <!-- StyleSheet -->
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/magnific-popup.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.css">
+    <link rel="stylesheet" href="/css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="/css/themify-icons.css">
+    <link rel="stylesheet" href="/css/jquery-ui.css">
+    <link rel="stylesheet" href="/css/niceselect.css">
+    <link rel="stylesheet" href="/css/animate.css">
+    <link rel="stylesheet" href="/css/flex-slider.min.css">
+    <link rel="stylesheet" href="/css/owl-carousel.css">
+    <link rel="stylesheet" href="/css/slicknav.min.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+    <link rel="stylesheet" href="/css/color/color1.css">
+    <link rel="stylesheet" href="#" id="colors">
+
+    <!-- 추가된 스타일 -->
+    <style>
+        /* 팝업 스타일 */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+        .popup-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 300px;
+        }
+        .popup-buttons {
+            margin-top: 20px;
+        }
+        .popup-buttons button {
+            margin: 0 10px;
+        }
+    </style>
+
+</head>
+<body class="js">
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<!-- Breadcrumbs -->
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="bread-inner">
+                    <ul class="bread-list">
+                        <li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
+                        <li class="active"><a href="blog-single.html">Shop Grid</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Breadcrumbs -->
+
+<!--	마이페이지 사이드바 시작-->
+<!-- Product Style -->
+<section class="product-area shop-sidebar shop section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-12">
+                <div class="shop-sidebar">
+                    <!-- Single Widget -->
+                    <div class="single-widget category" style="border-radius: 10px">
+                        <a href="/admin" class="title-line" style="text-align: center">
+                            <h4>관리자 페이지</h4>
+                        </a>
+                        <br/>
+                        <br/>
+                        <h3 class="title">도서 관리</h3>
+                        <ul class="categor-list">
+                            <li><a href="/admin/book/create">책 등록</a></li>
+                            <li><a href="/admin/book/list">책 수정/삭제</a></li>
+                            <li><a href="/admin/book/aladin">알라딘 책 등록</a></li>
+                        </ul>
+                        <br/>
+                        <br/>
+                        <h3 class="title">카테고리 관리</h3>
+                        <ul class="categor-list">
+                            <li><a href="/admin/category/category-list">카테고리 등록</a></li>
+                            <li><a href="/admin/category/category-list">카테고리 수정/삭제</a></li>
+                        </ul>
+                        <br/>
+                        <br/>
+                        <h3 class="title">태그 관리</h3>
+                        <ul class="categor-list">
+                            <li><a href="/admin/tag">태그 등록</a></li>
+                            <li><a href="/admin/tag/list">태그 수정/삭제</a></li>
+                        </ul>
+                        <br/>
+                        <br/>
+                        <h3 class="title">주문 정보</h3>
+                        <ul class="categor-list">
+                            <li><a href="/admin/orders?status=결제대기">결제대기</a></li>
+                            <li><a href="/admin/orders?status=배송전">배송전</a></li>
+                            <li><a href="/admin/orders?status=반품">반품 요청</a></li>
+                        </ul>
+                        <br/>
+                        <br/>
+                        <h3 class="title">포장지 관리</h3>
+                        <ul class="categor-list">
+                            <li><a href="/admin/packaging">포장지 추가</a></li>
+                            <li><a href="#">포장지 삭제</a></li>
+                        </ul>
+                        <br/>
+                        <br/>
+                        <h3 class="title">리뷰 관리</h3>
+                        <ul class="categor-list">
+                            <li><a href="#">최근 작성된 리뷰</a></li>
+                            <li><a href="#">차단 완료된 리뷰</a></li>
+                        </ul>
+                        <br/>
+                        <br/>
+                        <h3 class="title">회원 관리</h3>
+                        <ul class="categor-list">
+                            <li><a href="#">회원 관리</a></li>
+                            <li><a href="#">회원 등급 관리</a></li>
+                            <li><a href="#">회원 역할 관리</a></li>
+                        </ul>
+                        <br/>
+                        <br/>
+                        <h3 class="title">쿠폰 관리</h3>
+                        <ul class="categor-list">
+                            <li><a href="/admin/coupon-policies/rate/book">쿠폰 정책 관리</a></li>
+                            <li><a href="/admin/coupon">쿠폰 관리</a></li>
+                            <br/>
+                        </ul>
+                        </ul>
+                        <br/>
+                        <br/>
+                        <h3 class="title">포인트 관리</h3>
+                        <ul class="categor-list">
+                            <li><a href="/admin/point/createPointPolicy">포인트 정책 등록</a></li>
+                            <li><a href="/admin/point/updatePointPolicy">포인트 정책 수정</a></li>
+                            <li><a href="/admin/point/deletePointPolicy">포인트 정책 삭제</a></li>
+                            <li><a href="/admin/point/allPointPolicies">모든 포인트 정책 목록</a></li>
+                        </ul>
+                    </div>
+                    <!--/ End Single Widget -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+            <!--	마이페이지 사이드바 종료-->
+<!-- 삭제 화면 영역 -->
+<div class="col-lg-9 col-md-8 col-12">
+    <br/>
+
+    <div class="col-12" style="display: flex; justify-content: space-between; padding: 0;">
+        <div>
+            <h3 class="d-inline">포인트 정책 삭제</h3>
+            <span class="d-inline" style="color:#bbbbbd;">선택한 정책을 삭제합니다.</span>
+        </div>
+    </div>
+
+    <div class="col-12" style="display: flex; justify-content: flex-end; padding: 0;">
+        <span class="d-inline">삭제 버튼을 누르면 비활성화 처리됩니다.</span>
+    </div>
+
+    <div class="col-12 shop-top" style="padding: 0; border-radius: 10px">
+        <div style="padding-left:45px; padding-top:50px; padding-bottom:30px;">
+            <form method="post" action="/point/delete" id="deleteForm">
+                <table style="border-collapse: collapse; width: 100%;">
+                    <tbody>
+                    <tr>
+                        <td style="text-align: center; padding: 10px;">
+                            <label for="pointPolicyName">포인트 정책 이름:</label>
+                            <input type="text" id="pointPolicyName" name="pointPolicyName" value="${pointPolicyRequest.pointPolicyName}" readonly>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center; padding: 10px;">
+                            <label for="pointPolicyRate">포인트 비율:</label>
+                            <input type="number" id="pointPolicyRate" name="pointPolicyRate" value="${pointPolicyRequest.pointPolicyRate}" readonly>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center; padding: 10px;">
+                            <label for="pointPolicyCondition">포인트 조건:</label>
+                            <input type="text" id="pointPolicyCondition" name="pointPolicyCondition" value="${pointPolicyRequest.pointPolicyCondition}" readonly>
+                        </td>
+                    </tr>
+                    <!-- Hidden input to pass the policyId -->
+                    <input type="hidden" name="pointPolicyId" value="${pointPolicyRequest.pointPolicyId}">
+
+                    <tr>
+                        <td style="text-align: center; padding: 20px;">
+                            <button type="submit" class="btn btn-danger">삭제</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+
+            <!-- 삭제 취소 버튼 -->
+            <div style="text-align: center; padding-top: 20px;">
+                <a href="/point/policies" class="btn btn-secondary">돌아가기</a>
+            </div>
+        </div>
+    </div>
+    <br/><br/><br/>
+</div>
+</div>
+</div>
+</section>
+<!-- 마이페이지 사이드바 종료 -->
+
+<!-- 팝업 (모달) -->
+<div class="popup-overlay" id="popupOverlay">
+    <div class="popup-content">
+        <h4>정말로 삭제하시겠습니까?</h4>
+        <div class="popup-buttons">
+            <button id="confirmDelete" class="btn btn-danger">네</button>
+            <button id="cancelDelete" class="btn btn-secondary">아니오</button>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-migrate-3.0.0.js"></script>
+<script src="/js/jquery-ui.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/colors.js"></script>
+<script src="/js/slicknav.min.js"></script>
+<script src="/js/owl-carousel.js"></script>
+<script src="/js/magnific-popup.js"></script>
+<script src="/js/facnybox.min.js"></script>
+<script src="/js/waypoints.min.js"></script>
+<script src="/js/finalcountdown.min.js"></script>
+<script src="/js/nicesellect.js"></script>
+<script src="/js/ytplayer.min.js"></script>
+<script src="/js/flex-slider.js"></script>
+<script src="/js/scrollup.js"></script>
+<script src="/js/onepage-nav.min.js"></script>
+<script src="/js/easing.js"></script>
+<script src="/js/active.js"></script>
+
+<!-- 팝업 관련 스크립트 -->
+<script>
+    // 삭제 버튼 클릭 시 팝업 열기
+    document.getElementById('deleteButton').onclick = function() {
+        document.getElementById('popupOverlay').style.display = 'flex';
+    }
+
+    // "네" 버튼 클릭 시 삭제 처리
+    document.getElementById('confirmDelete').onclick = function() {
+        document.getElementById('deleteForm').submit(); // 실제 삭제 폼 제출
+    }
+
+    // "아니오" 버튼 클릭 시 팝업 닫기
+    document.getElementById('cancelDelete').onclick = function() {
+        document.getElementById('popupOverlay').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>

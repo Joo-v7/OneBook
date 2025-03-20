@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <!-- Meta Tag -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name='copyright' content=''>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Title Tag  -->
+    <title>1nebook - 로그인</title>
+
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <!-- Web Font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+
+    <!-- StyleSheet -->
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="/css/magnific-popup.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/css/font-awesome.css">
+    <!-- Fancybox -->
+<!--    <link rel="stylesheet" href="/css/jquery.fancybox.min.css">-->
+    <!-- Themify Icons -->
+    <link rel="stylesheet" href="/css/themify-icons.css">
+    <!-- Nice Select CSS -->
+    <link rel="stylesheet" href="/css/niceselect.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="/css/animate.css">
+    <!-- Flex Slider CSS -->
+    <link rel="stylesheet" href="/css/flex-slider.min.css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="/css/owl-carousel.css">
+    <!-- Slicknav -->
+    <link rel="stylesheet" href="/css/slicknav.min.css">
+
+    <!-- Eshop StyleSheet -->
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+
+    <!-- Color CSS -->
+    <link rel="stylesheet" href="/css/color/color1.css">
+
+    <link rel="stylesheet" href="#" id="colors">
+
+
+</head>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<body>
+<section class="shop login section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3 col-12">
+                <div class="login-form">
+                    <h2>로그인</h2>
+                    <p>1nebook.shop에 오신것을 환영합니다</p>
+                    <!-- Form  문영호 security login/process 로 -->
+                    <form id="form" class="form" method="post" action="/login/process">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>아이디<span>*</span></label>
+                                    <input type="text" id="id" name="id" placeholder="아이디를 입력하세요" required="required">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>비밀번호<span>*</span></label>
+                                    <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" required="required">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <button class="btn btn-block" type="submit">로그인</button>
+                                </div>
+<!--                                <div class="checkbox">-->
+<!--                                    <label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox">Remember me</label>-->
+<!--                                </div>-->
+                                <div class="text-center">
+                                    <a href="#" class="lost-pass mx-4 text-muted">아이디 찾기</a>
+                                    <span class="mr-2 text-muted">|</span>
+                                    <a href="#" class="lost-pass mx-4 text-muted">비밀번호 찾기</a>
+                                    <span class="mr-2 text-muted">|</span>
+                                    <a href="/join" class="lost-pass mx-4 text-muted"> 회원가입</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--/ End Login -->
+
+<!--<div th:replace="fragments/footer :: footer"></div>-->
+
+</body>
+</html>

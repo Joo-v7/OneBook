@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta Tag -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name='copyright' content=''>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Title Tag  -->
+  <title>1nebook - 태그 목록</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <!-- Web Font -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+
+  <!-- StyleSheet -->
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <!-- Magnific Popup -->
+  <link rel="stylesheet" href="/css/magnific-popup.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/css/font-awesome.css">
+  <!-- Fancybox -->
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css">
+  <!-- Themify Icons -->
+  <link rel="stylesheet" href="/css/themify-icons.css">
+  <!-- Nice Select CSS -->
+  <link rel="stylesheet" href="/css/niceselect.css">
+  <!-- Animate CSS -->
+  <link rel="stylesheet" href="/css/animate.css">
+  <!-- Flex Slider CSS -->
+  <link rel="stylesheet" href="/css/flex-slider.min.css">
+  <!-- Owl Carousel -->
+  <link rel="stylesheet" href="/css/owl-carousel.css">
+  <!-- Slicknav -->
+  <link rel="stylesheet" href="/css/slicknav.min.css">
+
+  <!-- Eshop StyleSheet -->
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+
+  <!-- Color CSS -->
+  <link rel="stylesheet" href="/css/color/color1.css">
+  <!--<link rel="stylesheet" href="/css/color/color2.css">-->
+  <!--<link rel="stylesheet" href="/css/color/color3.css">-->
+  <!--<link rel="stylesheet" href="/css/color/color4.css">-->
+  <!--<link rel="stylesheet" href="/css/color/color5.css">-->
+  <!--<link rel="stylesheet" href="/css/color/color6.css">-->
+  <!--<link rel="stylesheet" href="/css/color/color7.css">-->
+  <!--<link rel="stylesheet" href="/css/color/color8.css">-->
+  <!--<link rel="stylesheet" href="/css/color/color9.css">-->
+  <!--<link rel="stylesheet" href="/css/color/color10.css">-->
+  <!--<link rel="stylesheet" href="/css/color/color11.css">-->
+  <!--<link rel="stylesheet" href="/css/color/color12.css">-->
+
+  <link rel="stylesheet" href="#" id="colors">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<h2>태그 목록</h2>
+
+<!-- 태그 목록 출력 -->
+<ul>
+  <th:block th:each="tag : ${tags.content}">
+    <li>
+      <!-- 태그 이름을 클릭하면 해당 태그의 상세 페이지로 이동 -->
+      <a th:href="@{/admin/tag/{tagId}(tagId=${tag.tagId})}" th:text="${tag.tagName}"></a>
+    </li>
+  </th:block>
+</ul>
+
+<!-- 페이징 처리 -->
+<div>
+  <nav>
+    <ul class="pagination">
+      <!-- 이전 페이지 버튼 -->
+      <li th:if="${tags.hasPrevious()}" class="page-item">
+        <a class="page-link" th:href="@{/admin/tag/list?page=${tags.number - 1}}" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+
+      <!-- 페이지 번호 출력 -->
+      <th:block th:each="pageNum : ${#numbers.sequence(0, tags.totalPages - 1)}">
+        <li class="page-item">
+          <a th:href="@{/admin/tag/list(page=${pageNum})}" class="page-link" th:text="${pageNum + 1}"></a>
+        </li>
+      </th:block>
+
+      <!-- 다음 페이지 버튼 -->
+      <li th:if="${tags.hasNext()}" class="page-item">
+        <a class="page-link" th:href="@{/admin/tag/list?page=${tags.number + 1}}" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

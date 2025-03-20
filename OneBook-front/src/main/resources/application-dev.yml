@@ -1,0 +1,22 @@
+server:
+  port: 8110
+#  port: 8111
+
+onebook:
+  gatewayUrl: http://localhost:8210
+
+#nhnKey:
+  #  url: https://api-keymanager.nhncloudservice.com
+  #  appKey: qTQNj7LyHhdAazH3
+  #  keyPath: 1nebook.p12
+  #  password: 1nebook
+  #  keyId: a53e608fbf3744a594162277fb824907
+
+spring:
+  data:
+    redis:
+      host: 10.116.64.14
+      port: 6379
+      password: '*N2vya7H@muDTwdNMR!'
+      default_db: 201
+      cart_db: 202

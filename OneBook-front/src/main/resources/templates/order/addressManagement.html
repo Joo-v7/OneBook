@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>1nebook - 주소목록</title>
+    <style>
+        table {
+            width: 80%;
+            margin: auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .btn {
+            margin-top: 10px;
+            padding: 8px 12px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<h1 style="text-align: center;">Address List</h1>
+<table>
+    <thead>
+    <tr>
+        <th>별칭</th>
+        <th>이름</th>
+        <th>전화번호</th>
+        <th>우편번호</th>
+        <th>주소</th>
+        <th>상세주소</th>
+        <th>요청사항</th>
+        <th>선택</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- 주소 리스트 -->
+    <tr th:each="address : ${addressList}">
+        <td th:text="${address.alias}"></td>
+        <td th:text="${address.name}"></td>
+        <td th:text="${address.phoneNumber}"></td>
+        <td th:text="${address.zipCode}"></td>
+        <td th:text="${address.roadNameAddress}"></td>
+        <td th:text="${address.detailAddress}"></td>
+        <td th:text="${address.requestedTerm}"></td>
+        <td>
+            <button type="button" class="btn"
+                    th:attr="data-address-name=${address.name},data-address-phone=${address.phoneNumber},
+                             data-address-zipcode=${address.zipCode},data-address-road=${address.roadNameAddress},
+                             data-address-number=${address.numberAddress},data-address-detail=${address.detailAddress},
+                             data-address-notes=${address.notes},data-address-requestedTerm=${address.requestedTerm}"
+                    onclick="handleAddressSelection(this)">
+                선택
+            </button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<script>
+    function handleAddressSelection(button) {
+        // data 속성 값 읽기
+        const safeValue = (value) => value || "";
+
+        const recipientName = button.getAttribute('data-address-name');
+        const recipientPhoneNumber = button.getAttribute('data-address-phone');
+        const recipientZipCode = button.getAttribute('data-address-zipcode');
+        const recipientNumberAddress = button.getAttribute('data-address-number');
+        // const recipientRoadNameAddress = button.getAttribute('data-address-road');
+        // const recipientNotes = button.getAttribute('data-address-notes');
+        // const recipientDetailAddress = button.getAttribute('data-address-detail');
+        const recipientRequestedTerm = button.getAttribute('data-address-requestedTerm');
+
+        const recipientAddress = safeValue(button.getAttribute('data-address-road')) + " " + safeValue(button.getAttribute('data-address-notes')) + " " + safeValue(button.getAttribute('data-address-detail'));
+        // 부모 창에 주소 데이터 전달
+        window.opener.setAddress(recipientName, recipientPhoneNumber, recipientRequestedTerm, recipientAddress);
+        // 팝업창 닫기
+        window.close();
+    }
+</script>
+</body>
+</html>

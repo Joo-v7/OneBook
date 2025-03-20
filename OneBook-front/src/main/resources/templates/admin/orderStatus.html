@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>1nebook - 결제 대기</title>
+    <style>
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .submit-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .submit-button:hover {
+            background-color: #45a049;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column; /* 수직 정렬 */
+            align-items: center; /* 중앙 정렬 */
+            justify-content: center; /* 중앙 정렬 */
+            gap: 10px; /* 요소 간 간격 */
+            margin: 20px auto; /* 화면 중앙으로 위치 */
+            width: fit-content; /* 콘텐츠 크기에 맞춤 */
+        }
+
+        .submit-button {
+            margin-top: 10px; /* 추가 여유 간격 */
+        }
+
+        .redirect-button {
+            position: absolute; /* 위치 고정을 위한 절대 위치 */
+            top: 20px; /* 화면 상단에서 간격 */
+            right: 20px; /* 화면 오른쪽에서 간격 */
+            background-color: #F7941D; /* 버튼 배경색 */
+            border: 1px solid #F7941D; /* 버튼 테두리 */
+            padding: 8px 16px; /* 버튼 패딩 */
+            text-decoration: none; /* 링크 스타일 제거 */
+            color: #333; /* 텍스트 색상 */
+            border-radius: 4px; /* 버튼 둥근 모서리 */
+            text-align: center;
+        }
+
+        .redirect-button:hover {
+            background-color: #e0e0e0; /* 호버 시 배경색 */
+            color: #000; /* 호버 시 텍스트 색상 */
+        }
+    </style>
+</head>
+<body>
+<h1>주문 관리 - 관리자 전용</h1>
+<a href="/admin" class="redirect-button">Back to Admin</a>
+
+<form th:action="@{/admin/update-orderstatus}" method="post">
+    <input type="hidden" name="preStatus" th:value="${status}">
+    <div class="form-container">
+        <select id="postStatus" name="postStatus" required>
+            <option value="" disabled selected>상태를 선택하세요</option>
+            <option th:each="status : ${orderStatusList}"
+                    th:value="${status}"
+                    th:text="${status}"></option>
+        </select>
+        <button type="submit" class="submit-button">Submit Selected Orders</button>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>Select</th>
+            <th>Order ID</th>
+            <th>Member ID</th>
+            <th>Order Status</th>
+            <th>Order Name</th>
+            <th>Orderer</th>
+            <th>Phone Number</th>
+            <th>Order Time</th>
+            <th>Delivery Time</th>
+            <th>Delivery Price</th>
+            <th>Total Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- 데이터가 없을 경우 처리 -->
+        <tr th:if="${ordersByStatus.isEmpty()}">
+            <td colspan="11" style="text-align: center;">No orders found</td>
+        </tr>
+        <!-- 데이터 반복 출력 -->
+        <tr th:each="order : ${ordersByStatus}">
+            <td><input type="checkbox" name="orderIds" th:value="${order.orderId}"></td>
+            <td th:text="${order.orderId}">1</td>
+            <td th:text="${order.memberId}">100</td>
+            <td th:text="${order.orderStatus}">Pending</td>
+            <td th:text="${order.orderName}">Sample Order</td>
+            <td th:text="${order.orderer}">John Doe</td>
+            <td th:text="${order.phoneNumber}">010-1234-5678</td>
+            <td th:text="${order.orderTime}">2025-01-01T10:00:00</td>
+            <td th:text="${order.deliveryTime}">2025-01-03</td>
+            <td th:text="${order.deliveryPrice}">3000</td>
+            <td th:text="${order.totalPrice}">15000</td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+	<!-- Meta Tag -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name='copyright' content=''>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Title Tag  -->
+    <title>1nebook - 회원권한 수정</title>
+	<!-- Favicon -->
+	<link rel="icon" type="image/png" href="/images/favicon.png">
+	<!-- Web Font -->
+	<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+	
+	<!-- StyleSheet -->
+	
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="/css/bootstrap.css">
+	<!-- Magnific Popup -->
+    <link rel="stylesheet" href="/css/magnific-popup.min.css">
+	<!-- Font Awesome -->
+    <link rel="stylesheet" href="/css/font-awesome.css">
+	<!-- Fancybox -->
+	<link rel="stylesheet" href="/css/jquery.fancybox.min.css">
+	<!-- Themify Icons -->
+    <link rel="stylesheet" href="/css/themify-icons.css">
+	<!-- Jquery Ui -->
+    <link rel="stylesheet" href="/css/jquery-ui.css">
+	<!-- Nice Select CSS -->
+    <link rel="stylesheet" href="/css/niceselect.css">
+	<!-- Animate CSS -->
+    <link rel="stylesheet" href="/css/animate.css">
+	<!-- Flex Slider CSS -->
+    <link rel="stylesheet" href="/css/flex-slider.min.css">
+	<!-- Owl Carousel -->
+    <link rel="stylesheet" href="/css/owl-carousel.css">
+	<!-- Slicknav -->
+    <link rel="stylesheet" href="/css/slicknav.min.css">
+	
+	<!-- Eshop StyleSheet -->
+	<link rel="stylesheet" href="/css/reset.css">
+	<link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+
+	<!-- Color CSS -->
+	<link rel="stylesheet" href="/css/color/color1.css">
+	<!--<link rel="stylesheet" href="/css/color/color2.css">-->
+	<!--<link rel="stylesheet" href="/css/color/color3.css">-->
+	<!--<link rel="stylesheet" href="/css/color/color4.css">-->
+	<!--<link rel="stylesheet" href="/css/color/color5.css">-->
+	<!--<link rel="stylesheet" href="/css/color/color6.css">-->
+	<!--<link rel="stylesheet" href="/css/color/color7.css">-->
+	<!--<link rel="stylesheet" href="/css/color/color8.css">-->
+	<!--<link rel="stylesheet" href="/css/color/color9.css">-->
+	<!--<link rel="stylesheet" href="/css/color/color10.css">-->
+	<!--<link rel="stylesheet" href="/css/color/color11.css">-->
+	<!--<link rel="stylesheet" href="/css/color/color12.css">-->
+
+	<link rel="stylesheet" href="#" id="colors">
+	
+</head>
+<body class="js">
+	
+
+
+	<div th:replace="~{fragments/header :: header}"></div>
+		
+		<!-- Breadcrumbs -->
+		<div class="breadcrumbs">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="bread-inner">
+							<ul class="bread-list">
+								<li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
+								<li class="active"><a href="blog-single.html">Shop Grid</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Breadcrumbs -->
+
+	<!--	마이페이지 사이드바 시작-->
+	<!-- Product Style -->
+	<section class="product-area shop-sidebar shop section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-4 col-12">
+					<div class="shop-sidebar">
+						<!-- Single Widget -->
+						<div class="single-widget category" style="border-radius: 10px">
+							<a href="/admin" class="title-line" style="text-align: center">
+								<h4>관리자 페이지</h4>
+							</a>
+							<br/>
+							<br/>
+							<h3 class="title">도서 관리</h3>
+							<ul class="categor-list">
+								<li><a href="/admin/book/create">책 등록</a></li>
+								<li><a href="/admin/book/list">책 수정/삭제</a></li>
+								<li><a href="/admin/book/aladin">알라딘 책 등록</a></li>
+							</ul>
+							<br/>
+							<br/>
+							<h3 class="title">카테고리 관리</h3>
+							<ul class="categor-list">
+								<li><a href="/admin/category/category-list">카테고리 등록</a></li>
+								<li><a href="/admin/category/category-list">카테고리 수정/삭제</a></li>
+							</ul>
+							<br/>
+							<br/>
+							<h3 class="title">태그 관리</h3>
+							<ul class="categor-list">
+								<li><a href="/admin/tag">태그 등록</a></li>
+								<li><a href="/admin/tag/list">태그 수정/삭제</a></li>
+							</ul>
+							<br/>
+							<br/>
+							<h3 class="title">주문 정보</h3>
+							<ul class="categor-list">
+								<li><a href="/admin/orders?status=결제대기">결제대기</a></li>
+								<li><a href="/admin/orders?status=배송전">배송전</a></li>
+								<li><a href="/admin/orders?status=반품">반품 요청</a></li>
+							</ul>
+							<br/>
+							<br/>
+							<h3 class="title">포장지 관리</h3>
+							<ul class="categor-list">
+								<li><a href="/admin/packaging">포장지 추가</a></li>
+								<li><a href="#">포장지 삭제</a></li>
+							</ul>
+							<br/>
+							<br/>
+							<h3 class="title">리뷰 관리</h3>
+							<ul class="categor-list">
+								<li><a href="#">최근 작성된 리뷰</a></li>
+								<li><a href="#">차단 완료된 리뷰</a></li>
+							</ul>
+							<br/>
+							<br/>
+							<h3 class="title">회원 관리</h3>
+							<ul class="categor-list">
+								<li><a href="/admin/members">회원 관리</a></li>
+								<li><a href="/admin/grades">회원등급 관리</a></li>
+								<li><a href="/admin/roles">회원권한 관리</a></li>
+							</ul>
+							<br/>
+							<br/>
+							<h3 class="title">쿠폰 관리</h3>
+							<ul class="categor-list">
+								<li><a href="/admin/coupon-policies/rate/book">쿠폰 정책 관리</a></li>
+								<li><a href="/admin/coupon">쿠폰 관리</a></li>
+								<br/>
+							</ul>
+							</ul>
+							<br/>
+							<br/>
+							<h3 class="title">포인트 관리</h3>
+							<ul class="categor-list">
+								<li><a href="/admin/point/createPointPolicy">포인트 정책 등록</a></li>
+								<li><a href="/admin/point/updatePointPolicy">포인트 정책 수정</a></li>
+								<li><a href="/admin/point/deletePointPolicy">포인트 정책 삭제</a></li>
+								<li><a href="/admin/point/allPointPolicies">모든 포인트 정책 목록</a></li>
+							</ul>
+						</div>
+						<!--/ End Single Widget -->
+					</div>
+				</div>
+				<!--	마이페이지 사이드바 종료-->
+
+<!--					회원 등급 변경 본문-->
+					<div class="col-lg-6 col-md-8 col-12">
+						<section class="shop login section" style="padding: 0">
+							<div class="container">
+								<div class="row">
+									<div class="login-form">
+										<h2>회원권한 수정</h2>
+										<p>권한 이름은 중복될 수 없습니다</p>
+										<!-- Form -->
+										<form method="post" th:action="@{/admin/roles/modify/{role-id}(role-id=${role.id})}">
+											<input type="hidden" name="_method" value="put"/>
+										<div class="row">
+												<div class="col-12">
+													<div class="form-group">
+														<label>이름<span>*</span></label>
+														<input type="text" id="name" name="name" placeholder="권한 이름은 10자 이하로 입력하세요." th:value="${role.name()}" required>
+													</div>
+												</div>
+												<div class="col-12">
+													<div class="form-group">
+														<label>권한 설명<span>*</span></label>
+														<textarea id="description" name="description" placeholder="권한 설명은 200자 이하로 입력하세요." th:value="${role.description()}" required rows="10" cols="20"></textarea>
+													</div>
+												</div>
+												<div class="col-12">
+													<div class="form-group login-btn">
+														<button class="btn btn-block" type="submit">수정하기</button>
+													</div>
+												</div>
+
+											</div>
+										</form>
+										<!--/ End Form -->
+									</div>
+								</div>
+							</div>
+						</section>
+
+						</div>
+<!--					END	최근 3개월 순수 주문금액 content-->
+					</div>
+				</div>
+			</div>
+	</section>
+
+	<div th:replace="~{fragments/footer :: footer}"></div>
+	
+    <!-- Jquery -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery-migrate-3.0.0.js"></script>
+	<script src="/js/jquery-ui.min.js"></script>
+	<!-- Popper JS -->
+	<script src="/js/popper.min.js"></script>
+	<!-- Bootstrap JS -->
+	<script src="/js/bootstrap.min.js"></script>
+	<!-- Color JS -->
+	<script src="/js/colors.js"></script>
+	<!-- Slicknav JS -->
+	<script src="/js/slicknav.min.js"></script>
+	<!-- Owl Carousel JS -->
+	<script src="/js/owl-carousel.js"></script>
+	<!-- Magnific Popup JS -->
+	<script src="/js/magnific-popup.js"></script>
+	<!-- Fancybox JS -->
+	<script src="/js/facnybox.min.js"></script>
+	<!-- Waypoints JS -->
+	<script src="/js/waypoints.min.js"></script>
+	<!-- Countdown JS -->
+	<script src="/js/finalcountdown.min.js"></script>
+	<!-- Nice Select JS -->
+	<script src="/js/nicesellect.js"></script>
+	<!-- Ytplayer JS -->
+	<script src="/js/ytplayer.min.js"></script>
+	<!-- Flex Slider JS -->
+	<script src="/js/flex-slider.js"></script>
+	<!-- ScrollUp JS -->
+	<script src="/js/scrollup.js"></script>
+	<!-- Onepage Nav JS -->
+	<script src="/js/onepage-nav.min.js"></script>
+	<!-- Easing JS -->
+	<script src="/js/easing.js"></script>
+	<!-- Active JS -->
+	<script src="/js/active.js"></script>
+</body>
+</html>

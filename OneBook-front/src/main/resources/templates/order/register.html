@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>1nebook - 주문 등록</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .btn {
+            display: inline-block;
+            padding: 8px 12px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        input[type="text"] {
+            width: 90%;
+            padding: 5px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        /* 기본 스타일 */
+        #reserveDatesArea .date a {
+            display: block;
+            padding: 10px;
+            margin: 5px 0;
+            text-decoration: none;
+            color: black;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        /* 호버 스타일 */
+        #reserveDatesArea .date a:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* 선택된 상태 */
+        #reserveDatesArea .date a.selected {
+            background-color: #007bff;
+            color: white;
+            border-color: #0056b3;
+        }
+
+    </style>
+</head>
+<script>
+    // 팝업창 열기 함수
+    function openAddressPopup() {
+        window.open('/order/addresses', 'addressPopup', 'width=500,height=300');
+    }
+
+    // 팝업창에서 선택된 주소 데이터를 업데이트
+    function setAddress(recipientName, recipientPhoneNumber, recipientRequestedTerm, recipientAddress) {
+        console.log(recipientName, recipientPhoneNumber) //, recipientRoadNameAddress);
+        document.getElementById("recipientInputAddress").value = recipientAddress;
+        document.getElementById("recipientInputName").value = recipientName;
+        document.getElementById("recipientInputPhoneNumber").value = recipientPhoneNumber;
+        document.getElementById("recipientInputRequestedTerm").value = recipientRequestedTerm;
+
+        // document.getElementById("recipientInputRoadNameAddress").value = recipientRoadNameAddress;
+        // document.getElementById("recipientInputNotes").value = recipientNotes;
+        // document.getElementById("recipientInputDetailAddress").value = recipientDetailAddress;
+    }
+
+    // 포장지 팝업창 열기
+    function openPackagingPopup() {
+        window.open('/packagings', 'packagingPopup', 'width=600,height=400');
+    }
+
+    // 팝업창에서 선택된 포장지 데이터를 업데이트
+    function setPackaging(packagingId, packagingName, packagingPrice) {
+        document.getElementById("packagingInputId").value = packagingId;
+        document.getElementById("packagingInputName").value = packagingName;
+        document.getElementById("packagingInputPrice").value = packagingPrice;
+    }
+
+    // 서버에 전송할 객체 만들어줌
+
+    // 선택한 날짜 정보를 저장할 객체
+    let selectedReservation = {};
+
+    function setReservationDate(element) {
+        // 기존 선택 제거
+        const allOptions = document.querySelectorAll("#reserveDatesArea a");
+        allOptions.forEach((opt) => opt.classList.remove("selected"));
+
+        // 현재 선택 항목 활성화
+        element.classList.add("selected");
+
+        // 선택한 데이터 추출
+        selectedReservation = {
+            orderNum: element.getAttribute("data-ordernum"),
+            completedDate: element.getAttribute("data-expectdeliverycompletedate"),
+            description: element.getAttribute("data-expectdeliverycompletedatedesc"),
+            isReserve: element.getAttribute("data-isreserve"),
+        };
+
+        // 저장된 데이터 확인 (디버깅용)
+        console.log("선택된 예약 정보:", selectedReservation);
+
+        // 필요 시 추가 로직 (예: 서버 전송)
+        // sendToServer(selectedReservation);
+        // 선택된 값을 숨겨진 input 태그에 설정
+        document.getElementById("deliveryCompletedDate").value = selectedReservation.completedDate;
+    }
+</script>
+<body>
+<form action="/order/register" method="post">
+    <h1>배송지 입력</h1>
+    <h3>주문인</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>항목</th>
+            <th>입력창</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>이름</td>
+            <td><input type="text" name="ordererName" placeholder="이름을 입력하세요" required></td>
+        </tr>
+        <tr>
+            <td>전화번호</td>
+            <td><p th:text="${ordererPhoneNumber}" readonly></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3>받으시는 분</h3>
+    <button type="button" class="btn" onclick="openAddressPopup()">주소 선택</button>
+    <p>배송지 alias</p>
+    <table>
+        <thead>
+        <tr>
+            <th>항목</th>
+            <th>값</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>이름</td>
+            <td><input type="text" id="recipientInputName" name="recipientName"></td>
+        </tr>
+        <tr>
+            <td>전화번호</td>
+            <td><input type="text" id="recipientInputPhoneNumber" name="recipientPhone"></td>
+        </tr>
+        <tr>
+            <td>주소</td>
+            <td><input type="text" id="recipientInputAddress" name="recipientAddress"></td>
+        </tr>
+        <tr>
+            <td>요청사항</td>
+            <td><input type="text" id="recipientInputRequestedTerm" name="recipientRequestedTerm"></td>
+        </tr>
+        <tr>
+            <td>언제 받으시겠어요?</td>
+            <td>
+                <div id="reserveDatesArea">
+                    <div class="pcytz_day_wrap">
+                        <div class="date" th:each="date : ${reservationDates}">
+                            <a href="javascript:void(0);"
+                               th:classappend="${date.orderNum == 1} ? 'opt_on' : 'opt_off'"
+                               th:onclick="'setReservationDate(this);'"
+                               th:data-expectdeliverycompletedate="${date.completedDate}"
+                               th:data-isreserve="1">
+                                <div class="top_space"></div>
+                                <span th:text="${date.description}"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <input type="hidden" id="deliveryCompletedDate" name="deliveryCompletedDate" required>
+        </tr>
+        </tbody>
+    </table>
+    <button type="submit" class="btn">등록</button>
+</form>
+</body>
+</html>

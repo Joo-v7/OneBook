@@ -1,0 +1,195 @@
+<header class="header shop" th:fragmen="header">
+    <!-- Topbar -->
+    <div class="topbar">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-12 col-12">
+                    <!-- Top Left -->
+                    <div class="top-left">
+                        <ul class="list-main">
+                            <li><i class="ti-headphone-alt"></i>010-3082-2878</li>
+                            <span><li><i class="ti-email"></i>rlawngur145@naver.com</li></span>
+                        </ul>
+                    </div>
+                    <!--/ End Top Left -->
+                </div>
+                <div class="col-lg-8 col-md-12 col-12">
+                    <!-- Top Right -->
+                    <div class="right-content">
+                        <ul class="list-main">
+                            <!--                            <li><i class="ti-location-pin"></i> Store location</li>-->
+                            <!--                            <li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li>-->
+                            <span th:if="${role} == 'ROLE_ADMIN'">
+                            <li><i class="ti-user"></i> <a href="/admin">Admin Page</a></li>
+                            <li><i class="ti-power-off"></i><a href="/logout">Logout</a></li>
+
+                            </span>
+                            <span th:if="${role} == 'ROLE_MEMBER'">
+                            <li><i class="ti-user"></i> <a href="/my/home">My account</a></li>
+                            <li><i class="ti-power-off"></i><a href="/logout">Logout</a></li>
+
+                            </span>
+                            <span th:if="${role} == 'ROLE_ANONYMOUS'">
+                            <li><i class="ti-power-off"></i><a href="/login">Login</a></li>
+                            </span>
+
+                        </ul>
+                    </div>
+                    <!-- End Top Right -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Topbar -->
+    <div class="middle-inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-12">
+                    <!-- Logo -->
+                    <div class="logo">
+                        <a th:href="@{'/'}">
+                            <img src="/images/logo.png" alt="logo">
+                        </a>
+                    </div>
+                    <!--/ End Logo -->
+                    <!-- Search Form -->
+
+                    <!--/ End Search Form -->
+                    <div class="mobile-nav"></div>
+                </div>
+                <form action="/book/search" method="GET">
+                    <div class="col-lg-8 col-md-7 col-12">
+                        <div class="search-bar-top">
+                            <div class="search-bar">
+                                <select name="searchTarget">
+                                    <option value="all" selected>통합검색</option>
+                                </select>
+                                <input name="search" placeholder="Search Products Here....." type="search">
+                                <button class="btnn" type="submit"><i class="ti-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="col-lg-2 col-md-3 col-12">
+                    <div class="right-bar">
+                        <!-- Search Form -->
+                        <!--                        <div class="sinlge-bar">-->
+                        <!--                            <a href="#" class="single-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></a>-->
+                        <!--                        </div>-->
+                        <div class="sinlge-bar" th:if="${role} == 'ROLE_MEMBER'">
+                            <a id="home" th:href="@{/my/home}" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+                        </div>
+                        <!-- Joo - 장바구니 아이콘에 href랑 cart-count 추가 -->
+                        <div class="sinlge-bar shopping" th:if="${role} != 'ROLE_ADMIN'">
+                            <a href="/cart" class="single-icon" th:if="${cartCount == 0}">
+                                <i class="ti-bag"></i>
+                            </a>
+                            <a href="/cart" class="single-icon" th:if="${cartCount != 0}">
+                                <i class="ti-bag"></i> <span class="total-count" th:text="${cartCount}"></span>
+                            </a>
+                            <!-- 장바구니 view -->
+                            <!--                            <div class="shopping-item">-->
+                            <!--                                <div class="dropdown-cart-header">-->
+                            <!--                                    <span>2 Items</span>-->
+                            <!--                                    <a href="/cart">View Cart</a>-->
+                            <!--                                </div>-->
+                            <!--                                <ul class="shopping-list">-->
+                            <!--                                    <li>-->
+                            <!--                                        <a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>-->
+                            <!--                                        <a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>-->
+                            <!--                                        <h4><a href="#">Woman Ring</a></h4>-->
+                            <!--                                        <p class="quantity">1x - <span class="amount">$99.00</span></p>-->
+                            <!--                                    </li>-->
+                            <!--                                    <li>-->
+                            <!--                                        <a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>-->
+                            <!--                                        <a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>-->
+                            <!--                                        <h4><a href="#">Woman Necklace</a></h4>-->
+                            <!--                                        <p class="quantity">1x - <span class="amount">$35.00</span></p>-->
+                            <!--                                    </li>-->
+                            <!--                                </ul>-->
+                            <!--                                <div class="bottom">-->
+                            <!--                                    <div class="total">-->
+                            <!--                                        <span>Total</span>-->
+                            <!--                                        <span class="total-amount">$134.00</span>-->
+                            <!--                                    </div>-->
+                            <!--                                    <a href="checkout.html" class="btn animate">Checkout</a>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+                            <!--/ End Shopping Item -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header Inner -->
+    <!-- Header Inner -->
+    <div class="header-inner">
+        <div class="container">
+            <div class="cat-nav-head">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="menu-area">
+                            <!-- Main Menu -->
+                            <nav class="navbar navbar-expand-lg">
+                                <div class="navbar-collapse">
+                                    <div class="nav-inner">
+                                        <ul class="nav main-menu menu navbar-nav">
+                                            <li class="active"><a href="/">Home</a></li>
+                                            <li th:each="category : ${topCategories}" th:if="${category.status == false}" class="dropdown">
+                                                <!-- 상위 카테고리 클릭 시 categoryId를 URL에 포함시켜 전달 -->
+                                                <a th:href="@{/book-categories?categoryId={categoryId}(categoryId=${category.categoryId})}"
+                                                   th:text="${category.name}">
+                                                </a>
+
+                                                <!-- 하위 카테고리들 -->
+                                                <ul th:if="${category.subCategories != null}" class="dropdown-menu">
+                                                    <li th:each="subCategory : ${category.subCategories}" th:if="${subCategory.status == false}">
+                                                        <!-- 서브카테고리 클릭 시 subCategory의 categoryId를 URL에 포함시켜 전달 -->
+                                                        <a th:href="@{/book-categories?categoryId={categoryId}(categoryId=${subCategory.categoryId})}"
+                                                           th:text="${subCategory.name}">
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <!--                                            &lt;!&ndash; 카테고리 등록 버튼 &ndash;&gt;-->
+                                            <!--                                            <li>-->
+                                            <!--                                                <a th:href="@{/categories/create(categoryId=${categoryId})}" class="btn btn-primary">카테고리 등록</a>-->
+                                            <!--                                            </li>-->
+
+                                            <!--                                            <li>-->
+                                            <!--                                                <a th:href="@{/categories/updateForm(categoryId=${categoryId})}" class="btn btn-primary">카테고리 수정/삭제</a>-->
+                                            <!--                                            </li>-->
+                                            <!--                                            &lt;!&ndash; 태그 등록 버튼 &ndash;&gt;-->
+                                            <!--                                            <li>-->
+                                            <!--                                                <a th:href="@{/tags}" class="btn btn-primary">태그 등록</a>-->
+                                            <!--                                            </li>-->
+
+                                            <!--                                            <li>-->
+                                            <!--                                                <a th:href="@{/tags/list}" class="btn btn-primary">태그 수정/삭제</a>-->
+                                            <!--                                            </li>-->
+
+                                            <!--                                            &lt;!&ndash; 책 등록 버튼 &ndash;&gt;-->
+                                            <!--                                            <li>-->
+                                            <!--                                                <a th:href="@{/book(categoryId=${categoryId})}" class="btn btn-primary">책 등록</a>-->
+                                            <!--                                            </li>-->
+
+                                            <!--                                            <li>-->
+                                            <!--                                                <a th:href="@{/book/book-list}" class="btn btn-primary">책 수정/삭제</a>-->
+                                            <!--                                            </li>-->
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </nav>
+                            <!--/ End Main Menu -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ End Header Inner -->
+</header>
+<!--/ End Header -->

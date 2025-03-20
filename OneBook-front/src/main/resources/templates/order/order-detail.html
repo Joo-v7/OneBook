@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>1nebook - 주문 상세</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        /* 오른쪽 상단 버튼 스타일 */
+        .back-to-orders {
+            display: flex;
+            justify-content: flex-end; /* 오른쪽 정렬 */
+            margin-bottom: 20px; /* 버튼과 아래 내용 사이 간격 */
+        }
+
+        .btn-back {
+            text-decoration: none; /* 기본 링크 밑줄 제거 */
+            background-color: #F7941D; /* 버튼 배경색 (파란색) */
+            color: #fff; /* 텍스트 색상 (흰색) */
+            padding: 10px 20px; /* 버튼 패딩 */
+            border-radius: 5px; /* 모서리 둥글게 */
+            font-size: 14px; /* 텍스트 크기 */
+            font-weight: bold; /* 텍스트 굵기 */
+            transition: background-color 0.3s ease; /* 배경색 전환 효과 */
+        }
+
+        .btn-back:hover {
+            background-color: #F7941D; /* 호버 시 어두운 파란색 */
+            color: #fff; /* 텍스트 색상 유지 */
+        }
+
+        /* 전체 컨테이너 설정 */
+        .container {
+            display: flex;
+            justify-content: center; /* 수평 중앙 정렬 */
+            padding: 20px; /* 상하좌우 여백 */
+        }
+
+        /* 주문 상세 박스 스타일 */
+        .order-detail {
+            width: 80%; /* 너비를 적절히 설정 */
+            max-width: 800px; /* 최대 너비 제한 */
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 주문 항목 테이블 스타일 */
+        .order-items {
+            margin-top: 20px;
+            width: 100%; /* 테이블 너비를 박스에 맞춤 */
+        }
+
+        .order-items th, .order-items td {
+            padding: 10px;
+            text-align: left; /* 텍스트는 왼쪽 정렬 */
+            border-bottom: 1px solid #ddd;
+        }
+
+        .order-items th {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="order-detail">
+        <!-- 오른쪽 상단 버튼 -->
+        <div class="back-to-orders">
+            <a href="/my/orders" class="btn-back">나의 주문으로 돌아가기</a>
+        </div>
+
+        <!-- 주문 상세 정보 -->
+        <h1 th:text="'주문 번호: ' + ${orderDetail.orderResponse.orderId}"></h1>
+        <p th:text="'구매 일시: ' + ${#temporals.format(orderDetail.orderResponse.dateTime, 'yyyy-MM-dd HH:mm')}"></p>
+        <br>
+        <p th:text="'구매자: ' + ${orderDetail.orderResponse.orderer}"></p>
+        <p th:text="'총 가격(포장지 포함): ' + ${orderDetail.orderResponse.totalPrice} + '원'"></p>
+
+        <br>
+        <br>
+        <h2>주문 항목</h2>
+        <!-- 주문 항목 테이블 -->
+        <table class="order-items">
+            <thead>
+            <tr>
+                <th>책 제목</th>
+                <th>총 가격</th>
+                <th>구매 수량</th>
+                <th>책 가격</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${orderDetail.items}">
+                <td th:text="${item.bookTitle}"></td>
+                <td th:text="${T(java.lang.String).format('%,d', item.price)} + '원'"></td>
+                <td th:text="${item.quantity}"></td>
+                <td th:text="${T(java.lang.String).format('%,d', item.price * item.quantity)} + '원'"></td>
+
+            </tr>
+            </tbody>
+        </table>
+
+        <h2>배송비</h2>
+        <!-- 주문 항목 테이블 -->
+        <table class="order-items">
+            <thead>
+            <tr>
+<!--                <th>배송비</th>-->
+                <a>총 주문 금액이 3만원 미만일 시 배송비 5천원이 추가됩니다.</a>
+            </tr>
+            </thead>
+            <tbody>
+<!--                <td th:text="${orderDetail.orderResponse.}"></td>-->
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

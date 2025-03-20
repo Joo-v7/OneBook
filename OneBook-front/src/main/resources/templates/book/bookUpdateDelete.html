@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Tag -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name='copyright' content=''>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Title Tag  -->
+    <title>1nebook - 도서 수정/삭제</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <!-- Web Font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+
+    <!-- StyleSheet -->
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="/css/magnific-popup.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/css/font-awesome.css">
+    <!-- Fancybox -->
+    <link rel="stylesheet" href="/css/jquery.fancybox.min.css">
+    <!-- Themify Icons -->
+    <link rel="stylesheet" href="/css/themify-icons.css">
+    <!-- Nice Select CSS -->
+    <link rel="stylesheet" href="/css/niceselect.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="/css/animate.css">
+    <!-- Flex Slider CSS -->
+    <link rel="stylesheet" href="/css/flex-slider.min.css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="/css/owl-carousel.css">
+    <!-- Slicknav -->
+    <link rel="stylesheet" href="/css/slicknav.min.css">
+
+    <!-- Eshop StyleSheet -->
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+
+    <!-- Color CSS -->
+    <link rel="stylesheet" href="/css/color/color1.css">
+    <!--<link rel="stylesheet" href="/css/color/color2.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color3.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color4.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color5.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color6.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color7.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color8.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color9.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color10.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color11.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color12.css">-->
+
+    <link rel="stylesheet" href="#" id="colors">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<h2>도서 수정/삭제</h2>
+
+<div th:replace="~{fragments/header :: header}"></div>
+<form id="updateBookForm" action="/admin/book/update", method="POST">
+    <input type="hidden" name="bookId" id="bookId" th:value="${book.bookId}">
+
+    <!-- Title -->
+    <div class="form-group">
+        <label for="title">제목</label>
+        <input type="text" id="title" name="title" class="form-control" maxlength="100" required placeholder="Enter book title" th:value="${book.title}">
+    </div>
+
+    <!-- Content -->
+    <div class="form-group">
+        <label for="content">목차</label>
+        <textarea id="content" name="content" class="form-control" required placeholder="Enter book content" th:text="${book.content}"></textarea>
+    </div>
+
+    <!-- Description -->
+    <div class="form-group">
+        <label for="description">설명</label>
+        <textarea id="description" name="description" class="form-control" required placeholder="Enter book description" th:text="${book.description}"></textarea>
+    </div>
+
+    <!-- Price -->
+    <div class="form-group">
+        <label for="price">정가</label>
+        <input type="number" id="price" name="price" class="form-control" required placeholder="Enter price" min="0" th:value="${book.price}">
+    </div>
+
+    <!-- Sales Price -->
+    <div class="form-group">
+        <label for="salePrice">할인가</label>
+        <input type="number" id="salePrice" name="salePrice" class="form-control" required placeholder="Enter sales price" min="0" th:value="${book.salePrice}">
+    </div>
+
+    <!-- Stock -->
+    <div class="form-group">
+        <label for="stock">재고</label>
+        <input type="number" id="stock" name="stock" class="form-control" required placeholder="Enter stock quantity" min="0" th:value="${stock.stock}">
+    </div>
+
+    <!-- Buttons -->
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">수정하기</button>
+        <a th:href="@{/admin/book/delete(bookId=${book.bookId})}"
+           class="btn btn-danger"
+           onclick="return confirm('정말로 삭제하시겠습니까?');">
+            삭제하기
+        </a>
+    </div>
+    <!-- Submit Button -->
+<!--    <button type="button" class="btn btn-primary" onclick="submitForm()">수정하기</button>-->
+</form>
+
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+.book-thumbnail {
+    width: 100px;
+    height: 150px;
+    object-fit: contain; /* 이미지 비율 유지 */
+}
+
+/* 모달 스타일 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); /* 반투명 배경 */
+}
+
+/* 모달 콘텐츠 */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 화면 중앙 */
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 10px;
+    width: 40%; /* 넓이 조정 */
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 제목 스타일 */
+.modal-content h3 {
+    font-size: 1.8rem; /* 제목 글씨 크기 */
+    margin-bottom: 20px;
+}
+
+/* 본문 스타일 */
+.modal-content p {
+    font-size: 1.2rem; /* 본문 글씨 크기 */
+    margin-bottom: 30px;
+}
+
+/* 버튼 스타일 */
+.modal-content button {
+    font-size: 1.2rem; /* 버튼 글씨 크기 */
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50; /* 기본 버튼 색 */
+    color: white;
+    cursor: pointer;
+}
+
+.modal-content button:hover {
+    background-color: #45a049; /* 버튼 호버 효과 */
+}
+
+.modal-content #confirmReturn {
+    background-color: #f44336; /* 취소 버튼 색 */
+}
+
+.modal-content #confirmReturn:hover {
+    background-color: #d32f2f; /* 취소 버튼 호버 효과 */
+}

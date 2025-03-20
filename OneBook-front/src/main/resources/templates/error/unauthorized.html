@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>1nebook - 로그인 필요</title>
+</head>
+<body>
+
+<section class="error-page">
+    <div class="table">
+        <div class="table-cell">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 offset-lg-3 col-12">
+                        <div class="error-inner">
+                            <h1 th:text="${error}">로그인 필요</h1>
+                            <h3 th:text="${content}">로그인 후 이용 가능합니다.</h3>
+                            <div class="button">
+                                <a href="/login" class="btn">로그인 페이지로 이동</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

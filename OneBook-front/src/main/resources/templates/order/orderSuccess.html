@@ -1,0 +1,49 @@
+<!--// 삭제 필요-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1nebook - 주문 성공</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+  <div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">주문이 성공적으로 등록되었습니다!</h4>
+    <p>주문이 성공적으로 완료되었습니다. 아래는 주문 내역입니다.</p>
+  </div>
+
+  <div th:if="${orderSuccess}">
+    <h5>주문 정보</h5>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">항목</th>
+        <th scope="col">상세 내용</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>포장지</td>
+        <td th:text="${orderDetails.packagingName} + ' (' + ${orderDetails.packagingPrice} + ')'" />4
+      </tr>
+      <tr>
+        <td>주문인</td>
+        <td th:text="${orderDetails.ordererName} + ', ' + ${orderDetails.ordererPhone}" />
+      </tr>
+      <tr>
+        <td>수령인</td>
+        <td th:text="${orderDetails.recipientName} + ', ' + ${orderDetails.recipientPhone} + ', ' + ${orderDetails.recipientAddress}" />
+      </tr>
+      <tr>
+        <td>요구사항</td>
+        <td th:text="${orderDetails.recipientRequestedTerm}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</body>
+</html>

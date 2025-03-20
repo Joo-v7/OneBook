@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>1nebook - 교환 상품 선택</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/order/return-style.css">
+</head>
+<body>
+<h2>상품을 선택해주세요</h2>
+<form id="returnForm" th:action="@{/my/order/return/{order-id}/step2(order-id=${orderId})}" method="post">
+    <div th:each="item, status : ${orderItems}">
+        <input type="checkbox"
+               th:id="${'item-' + item.orderDetailId}"
+               th:data-order-detail-id="${item.orderDetailId}"
+               th:data-book-id="${item.bookId}"
+               th:data-quantity="${item.quantity}"
+               th:data-price="${item.price}"
+               class="book-checkbox">
+        <img class="book-thumbnail" th:src="${itemImages[status.index]}" alt="#">
+        <label th:for="${'item-' + item.orderDetailId}">
+            <span th:text="${item.bookTitle}">도서명</span>
+            <span th:text="${item.quantity}">수량</span>
+            <span th:text="${item.price}">가격</span>
+        </label>
+    </div>
+    <button type="button" onclick="history.back()">돌아가기</button>
+    <button type="button" onclick="submitForm()">다음</button>
+</form>
+
+<script src="/js/order/exchange-return.js"></script>
+</body>
+</html>

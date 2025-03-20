@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Tag -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name='copyright' content=''>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Title Tag  -->
+    <title>Eshop - eCommerce HTML5 Template.</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <!-- Web Font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+
+    <!-- StyleSheet -->
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="/css/magnific-popup.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/css/font-awesome.css">
+    <!-- Fancybox -->
+    <link rel="stylesheet" href="/css/jquery.fancybox.min.css">
+    <!-- Themify Icons -->
+    <link rel="stylesheet" href="/css/themify-icons.css">
+    <!-- Nice Select CSS -->
+    <link rel="stylesheet" href="/css/niceselect.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="/css/animate.css">
+    <!-- Flex Slider CSS -->
+    <link rel="stylesheet" href="/css/flex-slider.min.css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="/css/owl-carousel.css">
+    <!-- Slicknav -->
+    <link rel="stylesheet" href="/css/slicknav.min.css">
+
+    <!-- Eshop StyleSheet -->
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+
+    <!-- Color CSS -->
+    <link rel="stylesheet" href="/css/color/color1.css">
+    <!--<link rel="stylesheet" href="/css/color/color2.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color3.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color4.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color5.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color6.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color7.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color8.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color9.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color10.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color11.css">-->
+    <!--<link rel="stylesheet" href="/css/color/color12.css">-->
+
+    <link rel="stylesheet" href="#" id="colors">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+</head>
+<body class="js">
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div class="container mt-4">
+    <div class="row">
+        <!-- 이미지 영역 -->
+        <div class="col-md-4">
+            <!-- url null 체크를 더 안전하게 수정 -->
+            <img th:if="${url}" th:src="${url}" class="img-fluid" alt="책 이미지">
+        </div>
+
+        <!-- 상세 정보 영역 -->
+        <div class="col-md-8">
+            <h2 th:text="${book?.title}">제목</h2>
+
+
+            <!-- publisher null 체크 -->
+            <!-- author null 체크 -->
+            <div class="publisher-info mt-3">
+                <p th:if="${author}">
+                    작가: <span th:text="${author.name}">작가명</span>
+                </p>
+                <p th:if="${book?.publisher}">
+                    출판사: <span th:text="${book.publisher?.name}">출판사명</span>
+                </p>
+            </div>
+
+            <div class="price-info mt-3">
+                <p>정가: <span th:text="${book?.price != null ? #numbers.formatInteger(book.price, 0, 'COMMA') + '원' : '0원'}">0원</span></p>
+                <p>판매가: <span th:text="${book?.salePrice != null ? #numbers.formatInteger(book.salePrice, 0, 'COMMA') + '원' : '0원'}">0원</span></p>
+            </div>
+            <div class="additional-info mt-3">
+                <p>출판일: <span th:text="${book?.pubdate != null ? #temporals.format(book.pubdate, 'yyyy-MM-dd') : '-'}">출판일</span></p>
+                <p>판매량: <span th:text="${book?.amount ?: 0}">0</span></p>
+            </div>
+
+            <form action="/like" method="POST">
+                <input type="hidden" name="bookId" th:value="${book.bookId}">
+                <button type="submit" class="btn btn-outline-danger">
+                    <i class="fa fa-heart" aria-hidden="true"></i> 좋아요
+                </button>
+            </form>
+
+            <form action="/add-to-cart" method="POST">
+                <div class="quantity-section mt-3">
+                    <div class="input-group" style="width: 150px;">
+                        수량  <input type="number" name="quantity" class="form-control" value="1" min="1">
+                    </div>
+                    <div class="mt-2 d-flex" style="gap: 10px;">
+                        <button type="submit" class="btn btn-primary" formaction="/cart">장바구니</button>
+                        <button type="submit" class="btn btn-danger" formaction="/buy-now">바로구매</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="description mt-4">
+                <h4>책 소개</h4>
+                <div th:text="${book?.description ?: '책 소개 내용이 없습니다.'}">책 소개 내용</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

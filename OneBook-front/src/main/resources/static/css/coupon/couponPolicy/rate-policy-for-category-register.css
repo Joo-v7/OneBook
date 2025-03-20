@@ -1,0 +1,15 @@
+.ml-2 {
+    margin-left: 0.5rem;
+}
+.d-flex {
+    display: flex;
+}
+.align-items-center {
+    align-items: center;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 3개씩 정렬 */
+    gap: 10px; /* 아이템 간격 */
+}

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+  <!-- Meta Tag -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name='copyright' content=''>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Title Tag  -->
+  <title>Eshop - eCommerce HTML5 Template.</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <!-- Web Font -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+
+  <!-- StyleSheet -->
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <!-- Magnific Popup -->
+  <link rel="stylesheet" href="/css/magnific-popup.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/css/font-awesome.css">
+  <!-- Fancybox -->
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css">
+  <!-- Themify Icons -->
+  <link rel="stylesheet" href="/css/themify-icons.css">
+  <!-- Jquery Ui -->
+  <link rel="stylesheet" href="/css/jquery-ui.css">
+  <!-- Nice Select CSS -->
+  <link rel="stylesheet" href="/css/niceselect.css">
+  <!-- Animate CSS -->
+  <link rel="stylesheet" href="/css/animate.css">
+  <!-- Flex Slider CSS -->
+  <link rel="stylesheet" href="/css/flex-slider.min.css">
+  <!-- Owl Carousel -->
+  <link rel="stylesheet" href="/css/owl-carousel.css">
+  <!-- Slicknav -->
+  <link rel="stylesheet" href="/css/slicknav.min.css">
+
+  <!-- Eshop StyleSheet -->
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+
+  <!-- Color CSS -->
+  <link rel="stylesheet" href="/css/color/color1.css">
+  <!--<link rel="stylesheet" href="/css/color/color2.css">-->
+  <!--<link rel="stylesheet" href="/css/color/color3.css">-->
+  <!--<link rel="stylesheet" href="/css/color/color4.css">-->
+  <!--<link rel="stylesheet" href="/css/color/color5.css">-->
+  <!--<link rel="stylesheet" href="/css/color/color6.css">-->
+  <!--<link rel="stylesheet" href="/css/color/color7.css">-->
+  <!--<link rel="stylesheet" href="/css/color/color8.css">-->
+  <!--<link rel="stylesheet" href="/css/color/color9.css">-->
+  <!--<link rel="stylesheet" href="/css/color/color10.css">-->
+  <!--<link rel="stylesheet" href="/css/color/color11.css">-->
+  <!--<link rel="stylesheet" href="/css/color/color12.css">-->
+
+  <link rel="stylesheet" href="#" id="colors">
+
+</head>
+<body class="js">
+
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<!-- Breadcrumbs -->
+<div class="breadcrumbs">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="bread-inner">
+          <ul class="bread-list">
+            <li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
+            <li class="active"><a href="blog-single.html">Shop Grid</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Breadcrumbs -->
+
+<!-- 마이페이지 사이드바 -->
+<section class="product-area shop-sidebar shop section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-md-4 col-12">
+        <div class="shop-sidebar">
+          <div class="single-widget category" style="border-radius: 10px">
+            <a href="/admin" class="title-line" style="text-align: center">
+              <h4>관리자 페이지</h4>
+            </a>
+            <br/>
+            <h3 class="title">도서 관리</h3>
+            <ul class="categor-list">
+              <li><a href="/admin/book/create">책 등록</a></li>
+              <li><a href="/admin/book/list">책 수정/삭제</a></li>
+              <li><a href="/admin/book/aladin">알라딘 책 등록</a></li>
+            </ul>
+            <br/>
+            <h3 class="title">포인트 관리</h3>
+            <ul class="categor-list">
+              <li><a href="/admin/point/createPointPolicy">포인트 정책 등록</a></li>
+              <li><a href="/admin/point/updatePointPolicy">포인트 정책 수정</a></li>
+              <li><a href="/admin/point/deletePointPolicy">포인트 정책 삭제</a></li>
+              <li><a href="/admin/point/allPointPolicies">모든 포인트 정책 목록</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 메인 콘텐츠 영역 -->
+      <div class="col-lg-9 col-md-8 col-12">
+        <div class="col-12" style="display: flex; justify-content: space-between; padding:0;">
+          <div>
+            <h3 class="d-inline">포인트 정책 목록</h3>
+          </div>
+        </div>
+
+        <div class="col-12 shop-top" style="padding: 0; border-radius: 10px">
+          <div style="padding-left:45px; padding-top:50px; padding-bottom:30px;">
+            <table style="border-collapse: collapse; width: 100%;">
+              <thead>
+              <tr style="text-align: center;">
+                <th>정책 이름</th>
+                <th>적립 조건</th>
+                <th>적립 비율</th>
+                <th>상태</th>
+                <th>상세보기</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="policy : ${pointPolicies}">
+                <td th:text="${policy.pointPolicyName}"></td>
+                <td th:text="${policy.pointPolicyCondition}"></td>
+                <td th:text="${policy.pointPolicyRate}"></td>
+                <td th:text="${policy.pointPolicyState ? '활성화' : '비활성화'}"></td>
+                <td style="text-align: center">
+                  <a th:href="@{/pointPolicy/{id}(id=${policy.pointPolicyId})}" class="btn btn-outline-dark btn-sm mb-2">상세보기</a>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!-- Jquery -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-migrate-3.0.0.js"></script>
+<script src="/js/jquery-ui.min.js"></script>
+<!-- Popper JS -->
+<script src="/js/popper.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="/js/bootstrap.min.js"></script>
+<!-- Color JS -->
+<script src="/js/colors.js"></script>
+<!-- Slicknav JS -->
+<script src="/js/slicknav.min.js"></script>
+<!-- Owl Carousel JS -->
+<script src="/js/owl-carousel.js"></script>
+<!-- Magnific Popup JS -->
+<script src="/js/magnific-popup.js"></script>
+<!-- Fancybox JS -->
+<script src="/js/facnybox.min.js"></script>
+<!-- Waypoints JS -->
+<script src="/js/waypoints.min.js"></script>
+<!-- Countdown JS -->
+<script src="/js/finalcountdown.min.js"></script>
+<!-- Nice Select JS -->
+<script src="/js/nicesellect.js"></script>
+<!-- Ytplayer JS -->
+<script src="/js/ytplayer.min.js"></script>
+<!-- Flex Slider JS -->
+<script src="/js/flex-slider.js"></script>
+<!-- ScrollUp JS -->
+<script src="/js/scrollup.js"></script>
+<!-- Onepage Nav JS -->
+<script src="/js/onepage-nav.min.js"></script>
+<!-- Easing JS -->
+<script src="/js/easing.js"></script>
+<!-- Active JS -->
+<script src="/js/active.js"></script>
+</body>
+</html>

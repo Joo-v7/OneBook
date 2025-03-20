@@ -1,0 +1,47 @@
+<!-- step3.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>1nebook - 교환사유</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<h2>사유를 선택해주세요</h2>
+<form th:action="@{/my/order/return/{order-id}/submit(order-id=${orderId})}" method="post">
+    <!-- 교환 사유 -->
+    <div th:if="${solutionType == 'EXCHANGE'}">
+        <div>
+            <input type="radio" id="quality-ex" name="reason" value="QUALITY" required>
+            <label for="quality-ex">품질불만</label>
+        </div>
+        <div>
+            <input type="radio" id="wrong-option" name="reason" value="WRONG_OPTION" required>
+            <label for="wrong-option">잘못된 책 선택</label>
+        </div>
+        <div>
+            <input type="radio" id="other-ex" name="reason" value="OTHER" required>
+            <label for="other-ex">그 외 문제</label>
+        </div>
+    </div>
+
+    <!-- 반품 사유 -->
+    <div th:if="${solutionType == 'RETURN'}">
+        <div>
+            <input type="radio" id="quality-re" name="reason" value="QUALITY" required>
+            <label for="quality-re">품질불만</label>
+        </div>
+        <div>
+            <input type="radio" id="not-needed" name="reason" value="NOT_NEEDED" required>
+            <label for="not-needed">필요없어짐</label>
+        </div>
+        <div>
+            <input type="radio" id="other-re" name="reason" value="OTHER" required>
+            <label for="other-re">그 외 문제</label>
+        </div>
+    </div>
+
+    <button type="button" onclick="history.back()">이전</button>
+    <button type="submit">제출</button>
+</form>
+</body>
+</html>

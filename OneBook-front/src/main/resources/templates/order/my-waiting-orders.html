@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<!-- Meta Tag -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name='copyright' content='1nebook'>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Title Tag  -->
+<title>1nebook - 결제대기</title>
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/images/favicon.png">
+<!-- Web Font -->
+<link href="https://fonts.googleapis.com/css?family=Poppins:400, 700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+
+<!-- StyleSheet -->
+
+<!-- Bootstrap -->
+<link rel="stylesheet" href="/css/bootstrap.css">
+<!-- Magnific Popup -->
+<!--    <link rel="stylesheet" href="/css/magnific-popup.min.css">-->
+<!-- Font Awesome -->
+<link rel="stylesheet" href="/css/font-awesome.css">
+<!-- Fancybox -->
+<!--    <link rel="stylesheet" href="/css/jquery.fancybox.min.css">-->
+<!-- Themify Icons -->
+<link rel="stylesheet" href="/css/themify-icons.css">
+<!-- Jquery Ui -->
+<link rel="stylesheet" href="/css/jquery-ui.css">
+<!-- Nice Select CSS -->
+<link rel="stylesheet" href="/css/niceselect.css">
+<!-- Animate CSS -->
+<link rel="stylesheet" href="/css/animate.css">
+<!-- Flex Slider CSS -->
+<link rel="stylesheet" href="/css/flex-slider.min.css">
+<!-- Owl Carousel -->
+<!--    <link rel="stylesheet" href="/css/owl-carousel.css">-->
+<!-- Slicknav -->
+<link rel="stylesheet" href="/css/slicknav.min.css">
+
+<!-- Eshop StyleSheet -->
+<link rel="stylesheet" href="/css/reset.css">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/css/responsive.css">
+
+<!-- Color CSS -->
+<link rel="stylesheet" href="/css/color/color1.css">
+<link rel="stylesheet" href="#" id="colors">
+<link rel="stylesheet" href="/css/order/order-my-style.css">
+
+
+<script>
+    function confirmOrderCancel(orderId) {
+        const userConfirmed = confirm("주문을 취소하시겠습니까?");
+        if (userConfirmed) {
+            const form = document.getElementById('cancelForm');
+            form.action = `/my/order/cancel/${orderId}`;  // URL 동적 설정
+            form.submit();
+        }
+    }
+</script>
+
+
+<div th:insert="fragments/header :: header"></div>
+
+<!-- Breadcrumbs -->
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="bread-inner">
+                    <ul class="bread-list">
+                        <li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
+                        <li class="active"><a href="blog-single.html">Shop Grid</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Breadcrumbs -->
+
+<!--	마이페이지 사이드바 시작-->
+<!-- Product Style -->
+<section class="product-area shop-sidebar shop section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-12">
+                <div class="shop-sidebar">
+                    <!-- Single Widget -->
+                    <div class="single-widget category" style="border-radius: 10px">
+                        <a href="#" th:href="@{/my/home}" class="title-line">
+                            <h2>마이 페이지</h2>
+                        </a>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <h3 class="title">쇼핑 정보</h3>
+                        <ul class="categor-list">
+                            <li><a href="/my/orders">주문 목록/배송 조회</a></li>
+                            <li><a href="/my/orders/waiting">결제 대기</a></li>
+                            <li><a href="#">취소/반품/교환 내역</a></li>
+                            <li><a href="#">찜한 상품</a></li>
+                        </ul>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <h3 class="title">혜택 관리</h3>
+                        <ul class="categor-list">
+                            <li><a href="/coupon/coupon-box">쿠폰</a></li>
+                            <li><a href="/point/logs">포인트</a></li>
+                        </ul>
+                        <br/>
+                        <br/>
+                        <h3 class="title">리뷰</h3>
+                        <ul class="categor-list">
+                            <li><a href="/review/pending">작성 가능한 리뷰</a></li>
+                            <li><a href="/review/my-review">내가 작성한 리뷰</a></li>
+                        </ul>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <h3 class="title">회원 정보</h3>
+                        <ul class="categor-list">
+                            <li><a href="/my/member/modify-validate">회원정보 수정</a></li>
+                            <li><a href="/my/member/grade">회원 등급</a></li>
+                            <li><a href="/addresses">주소 관리</a></li>
+                            <li><a href="/my/member/leave-validate">회원 탈퇴</a></li>
+                        </ul>
+                    </div>
+                    <!--/ End Single Widget -->
+                </div>
+            </div>
+            <!--	마이페이지 사이드바 종료-->
+
+            <!--					마이 페이지 본문-->
+            <div class="col-lg-9 col-md-8 col-12">
+
+                <!-- Start myInfo Top -->
+                <div class="col-12 shop-top" style="padding: 0; border-radius: 10px;">
+                    <div style="padding-left:45px; padding-top:50px; padding-bottom:30px;">
+                        <table style="border-collapse: collapse; border: none; width: 100%;">
+                            <h3 class="d-inline">주문/배송</h3>
+                        </table>
+                    </div>
+                </div>
+                <!--/ End myInfo Top -->
+
+                <p>날짜 선택</p>
+                <p>배송 선택</p>
+
+                <!-- 검색 폼 -->
+                <form th:action="@{/orders/search}" method="get">
+                    <!-- 드롭다운 메뉴 -->
+                    <label for="orderStatus">주문 상태:</label>
+                    <select id="orderStatus" name="orderStatus">
+                        <option value="" disabled selected>상태를 선택하세요</option>
+                        <option th:each="status : ${orderStatusList}"
+                                th:value="${status}"
+                                th:text="${status}"></option>
+                    </select>
+
+                    <!-- 검색 버튼 -->
+                    <button type="submit">검색</button>
+                </form>
+
+                <hr style="border: 0; height: 7px; background-color: #e1e2e6;">
+                <br/>
+
+                <!--	Start 주문/배송 현황 content  -->
+
+                <div class="order-card" th:each="order : ${orderList}">
+                    <div class="order-header">
+<!--                        <span class="order-date" th:text="${#temporals.format(order.dateTime, 'yy.MM.dd')}   ${order.orderStatusName}"></span>-->
+                        <span class="order-date" th:text="${#temporals.format(order.dateTime, 'yy.MM.dd')} + ' ' + ${order.orderStatusName}"></span>
+                        <!--                        <span><p class="orderer" th:text="${order.orderStatusName}"></span>-->
+                        <a class="order-details-link" href="#" th:href="@{/my/order-detail/{orderId}(orderId=${order.orderId})}">주문 상세</a>
+                    </div>
+                    <div class="order-body">
+                        <!--                        <img class="order-image" th:src="@{/images/order.jpg}" alt="상품 이미지">-->
+<!--                        <p class="orderer" th:text="${order.orderStatusName}">-->
+                        <p class="order-image" th:text="상품이미지">
+                        <div class="order-info">
+                            <h3 class="order-name" th:text="${order.orderName}"></h3>
+                            <p class="orderer" th:text="${order.orderer}"></p>
+                            <p class="order-total-price" th:text="${T(java.lang.String).format('%,d', order.getTotalPrice()) + '원'}"></p>
+                        </div>
+                    </div>
+                    <div class="order-footer">
+                        <form action="/front/payments/checkout-page" method="get">
+                            <input type="hidden" name="orderId" th:value="${order.orderId}"/>
+                            <button class="order-action" type="submit">재결제</button>
+                        </form>
+                        <form id="cancelForm" method="get">
+                            <button class="order-action" type="button" th:onclick="'confirmOrderCancel(\'' + ${order.orderId} + '\')'">주문취소</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!--	Done 주문/배송 현황 content  -->
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Jquery -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-migrate-3.0.0.js"></script>
+<script src="/js/jquery-ui.min.js"></script>
+<!-- Popper JS -->
+<script src="/js/popper.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="/js/bootstrap.min.js"></script>
+<!-- Color JS -->
+<script src="/js/colors.js"></script>
+<!-- Slicknav JS -->
+<script src="/js/slicknav.min.js"></script>
+<!-- Owl Carousel JS -->
+<script src="/js/owl-carousel.js"></script>
+<!-- Magnific Popup JS -->
+<script src="/js/magnific-popup.js"></script>
+<!-- Fancybox JS -->
+<script src="/js/facnybox.min.js"></script>
+<!-- Waypoints JS -->
+<script src="/js/waypoints.min.js"></script>
+<!-- Countdown JS -->
+<script src="/js/finalcountdown.min.js"></script>
+<!-- Nice Select JS -->
+<script src="/js/nicesellect.js"></script>
+<!-- Ytplayer JS -->
+<script src="/js/ytplayer.min.js"></script>
+<!-- Flex Slider JS -->
+<script src="/js/flex-slider.js"></script>
+<!-- ScrollUp JS -->
+<script src="/js/scrollup.js"></script>
+<!-- Onepage Nav JS -->
+<script src="/js/onepage-nav.min.js"></script>
+<!-- Easing JS -->
+<script src="/js/easing.js"></script>
+<!-- Active JS -->
+<script src="/js/active.js"></script>
+</body>
+
+<div th:insert="fragments/footer :: footer"></div>
+</html>

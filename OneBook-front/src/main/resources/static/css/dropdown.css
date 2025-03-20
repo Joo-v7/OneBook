@@ -1,0 +1,33 @@
+
+css
+Copy code
+    /* 드롭다운 메뉴 스타일 */
+.navbar-nav .dropdown {
+    position: relative;
+}
+
+.navbar-nav .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 180px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.navbar-nav .dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.navbar-nav .dropdown-menu li a {
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #333;
+}
+
+.navbar-nav .dropdown-menu li a:hover {
+    background-color: #f1f1f1;
+}

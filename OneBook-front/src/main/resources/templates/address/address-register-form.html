@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+	<!-- Meta Tag -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name='copyright' content=''>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Title Tag  -->
+    <title>1nebook - 주소지 등록</title>
+	<!-- Favicon -->
+	<link rel="icon" type="image/png" href="/images/favicon.png">
+	<!-- Web Font -->
+	<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+	
+	<!-- StyleSheet -->
+	
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="/css/bootstrap.css">
+	<!-- Magnific Popup -->
+    <link rel="stylesheet" href="/css/magnific-popup.min.css">
+	<!-- Font Awesome -->
+    <link rel="stylesheet" href="/css/font-awesome.css">
+	<!-- Fancybox -->
+	<link rel="stylesheet" href="/css/jquery.fancybox.min.css">
+	<!-- Themify Icons -->
+    <link rel="stylesheet" href="/css/themify-icons.css">
+	<!-- Nice Select CSS -->
+    <link rel="stylesheet" href="/css/niceselect.css">
+	<!-- Animate CSS -->
+    <link rel="stylesheet" href="/css/animate.css">
+	<!-- Flex Slider CSS -->
+    <link rel="stylesheet" href="/css/flex-slider.min.css">
+	<!-- Owl Carousel -->
+    <link rel="stylesheet" href="/css/owl-carousel.css">
+	<!-- Slicknav -->
+    <link rel="stylesheet" href="/css/slicknav.min.css">
+	
+	<!-- Eshop StyleSheet -->
+	<link rel="stylesheet" href="/css/reset.css">
+	<link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+
+	<!-- Color CSS -->
+	<link rel="stylesheet" href="/css/color/color1.css">
+
+	<link rel="stylesheet" href="#" id="colors">
+
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+		//본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+		function sample4_execDaumPostcode() {
+			new daum.Postcode({
+				oncomplete: function(data) {
+					// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+					// 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+					// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+					var roadAddr = data.roadAddress; // 도로명 주소 변수
+					var extraRoadAddr = ''; // 참고 항목 변수
+
+					// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+					// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+					if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+						extraRoadAddr += data.bname;
+					}
+					// 건물명이 있고, 공동주택일 경우 추가한다.
+					if(data.buildingName !== '' && data.apartment === 'Y'){
+						extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+					}
+					// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+					if(extraRoadAddr !== ''){
+						extraRoadAddr = ' (' + extraRoadAddr + ')';
+					}
+
+					// 우편번호와 주소 정보를 해당 필드에 넣는다.
+					document.getElementById('zipCode').value = data.zonecode;
+					document.getElementById("roadNameAddress").value = roadAddr;
+					document.getElementById("numberAddress").value = data.jibunAddress;
+
+					// 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+					if(roadAddr !== ''){
+						document.getElementById("notes").value = extraRoadAddr;
+					} else {
+						document.getElementById("notes").value = '';
+					}
+
+					var guideTextBox = document.getElementById("guide");
+					// 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+					if(data.autoRoadAddress) {
+						var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+						guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+						guideTextBox.style.display = 'block';
+
+					} else if(data.autoJibunAddress) {
+						var expJibunAddr = data.autoJibunAddress;
+						guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+						guideTextBox.style.display = 'block';
+					} else {
+						guideTextBox.innerHTML = '';
+						guideTextBox.style.display = 'none';
+					}
+				}
+			}).open();
+		}
+	</script>
+	
+</head>
+<body class="js">
+	
+
+		
+		<!-- Header -->
+	<div th:insert="fragments/header :: header"></div>
+
+	<!--/ End Header -->
+	
+		<!-- Breadcrumbs -->
+		<div class="breadcrumbs">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="bread-inner">
+							<ul class="bread-list">
+								<li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
+								<li class="active"><a href="blog-single.html">Register</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Breadcrumbs -->
+				
+		<!-- Shop Login -->
+		<section class="shop login section">
+			<div class="container">
+				<div class="row"> 
+					<div class="col-lg-6 offset-lg-3 col-12">
+						<div class="login-form">
+							<h2>배송지 등록</h2>
+							<p>배송지 정보를 입력하여 주십시오</p>
+							<!-- Form -->
+							<form class="form" method="post" action="/addresses/register">
+								<div class="row">
+									<div class="col-12">
+										<div class="form-group">
+											<label>받는분 성함<span>*</span></label>
+											<input type="text" name="name" placeholder="성함을 입력하세요, 최대 10자까지 입력가능합니다."
+												   required="required" maxlength="10">
+										</div>
+									</div>
+									<div class="col-12">
+										<div class="form-group">
+											<label>받는분 연락처<span>*</span></label>
+											<input type="text" name="phoneNumber" placeholder="전화번호를 입력하세요 '-' 없이 숫자만 입력하세요"
+												   required="required" maxlength="11" oninput="this.value =
+												   this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+										</div>
+									</div>
+									<div class="col-12">
+										<div class="form-group">
+											<label>주소지 별칭</label>
+											<input type="text" name="alias" placeholder="주소지 별칭을 입력하세요, 최대 20자까지 입력 가능합니다."
+												    maxlength="20">
+										</div>
+									</div>
+									<div class="col-12">
+										<div class="form-group">
+											<label>요청사항</label>
+											<input type="text" name="requestedTerm" placeholder="요청사항을 입력하세요, 최대 100자까지 입력 가능합니다."
+												    maxlength="100">
+										</div>
+									</div>
+
+									<div class="col-12">
+										<div class="form-group">
+										<label>도로명 주소 찾기<span>*</span></label><br>
+
+<!--											<button class="btn mb-2" onclick="sample4_execDaumPostcode()">우편번호 찾기</button>-->
+											<input class="btn mb-2" type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+											<input type="text" id="zipCode" name="zipCode" placeholder="우편번호" readonly >
+											<input type="text" id="roadNameAddress" name="roadNameAddress" placeholder="도로명주소" readonly>
+											<input type="text" id="numberAddress" name="numberAddress" placeholder="지번주소" readonly>
+											<span id="guide" style="color:#999;display:none"></span>
+											<input type="text" id="notes" name="notes"  readonly>
+											<input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소를 입력하세요. 최대 100자까지 입력가능합니다." required maxlength="100">
+											<div class="checkbox">
+												<label class="checkbox-inline" for="2"><input name="defaultLocation" id="2" type="checkbox" value="true">기본 배송지로 설정</label>
+											</div>
+
+										</div>
+									</div>
+									<br>
+
+									<div class="col-12">
+										<div class="form-group login-btn">
+											<button class="btn" type="submit">배송지 등록</button>
+											<a href="login.html" class="btn">취소</a>
+										</div>
+									</div>
+								</div>
+							</form>
+							<!--/ End Form -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--/ End Login -->
+
+	<div th:insert="fragments/footer :: footer"></div>
+
+		
+	<!-- Jquery -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery-migrate-3.0.0.js"></script>
+	<script src="/js/jquery-ui.min.js"></script>
+	<!-- Popper JS -->
+	<script src="/js/popper.min.js"></script>
+	<!-- Bootstrap JS -->
+	<script src="/js/bootstrap.min.js"></script>
+	<!-- Color JS -->
+	<script src="/js/colors.js"></script>
+	<!-- Slicknav JS -->
+	<script src="/js/slicknav.min.js"></script>
+	<!-- Owl Carousel JS -->
+	<script src="/js/owl-carousel.js"></script>
+	<!-- Magnific Popup JS -->
+	<script src="/js/magnific-popup.js"></script>
+	<!-- Fancybox JS -->
+	<script src="/js/facnybox.min.js"></script>
+	<!-- Waypoints JS -->
+	<script src="/js/waypoints.min.js"></script>
+	<!-- Countdown JS -->
+	<script src="/js/finalcountdown.min.js"></script>
+	<!-- Nice Select JS -->
+	<script src="/js/nicesellect.js"></script>
+	<!-- Ytplayer JS -->
+	<script src="/js/ytplayer.min.js"></script>
+	<!-- Flex Slider JS -->
+	<script src="/js/flex-slider.js"></script>
+	<!-- ScrollUp JS -->
+	<script src="/js/scrollup.js"></script>
+	<!-- Onepage Nav JS -->
+	<script src="/js/onepage-nav.min.js"></script>
+	<!-- Easing JS -->
+	<script src="/js/easing.js"></script>
+	<!-- Active JS -->
+	<script src="/js/active.js"></script>
+</body>
+</html>

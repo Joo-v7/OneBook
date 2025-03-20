@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>1nebook - 서버 오류</title>
+</head>
+<body>
+
+<section class="error-page">
+    <div class="table">
+        <div class="table-cell">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 offset-lg-3 col-12">
+                        <div class="error-inner">
+                            <h1 th:text="${error}">서버 오류</h1>
+                            <h3 th:text="${content}">서버에 문제가 발생했습니다. 잠시 후 다시 시도해주세요.</h3>
+                            <div class="button">
+                                <a href="/" class="btn">홈페이지로 돌아가기</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

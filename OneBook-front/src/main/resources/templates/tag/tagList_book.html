@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Meta Tag -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name='copyright' content=''>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Title Tag  -->
+    <title>1nebook - 태그 선택</title>
+
+    <!-- Eshop StyleSheet -->
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+
+    <!-- 페이지네이션용 CSS -->
+    <style>
+        .pagination {
+            display: flex; /* 가로로 배치 */
+            list-style: none; /* 기본 목록 스타일 제거 */
+            padding: 0;
+            margin: 10px 0;
+        }
+        .pagination li {
+            margin: 0 5px; /* 버튼 간격 설정 */
+        }
+        .pagination a {
+            display: block;
+            padding: 5px 10px;
+            text-decoration: none;
+            color: #007bff;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+        .pagination a:hover {
+            background-color: #f0f0f0;
+        }
+        .pagination .active a {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+    </style>
+</head>
+<body>
+<h3>태그 선택</h3>
+
+<!-- 작가 목록 출력 -->
+<ul>
+    <li th:each="tag : ${tags.content}">
+        <a href="#" th:data-tag-id="${tag.tagId}" th:data-tag-name="${tag.tagName}" th:onclick="|selectTag(this.getAttribute('data-tag-id'), this.getAttribute('data-tag-name')); return false;|">
+            <span th:text="${tag.tagName}"></span>
+        </a>
+    </li>
+</ul>
+
+
+<div>
+    <nav>
+        <ul class="pagination">
+            <!-- 이전 페이지 버튼 -->
+            <li th:if="${tags.hasPrevious()}" class="page-item">
+                <a class="page-link" th:href="@{/tags/tagList(page=${tags.number - 1})}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            <!-- 페이지 번호 출력 -->
+            <th:block th:each="pageNum : ${#numbers.sequence(0, tags.totalPages - 1)}">
+                <li th:classappend="${pageNum == tags.number} ? 'active' : ''" class="page-item">
+                    <a th:href="@{/tags/tagList(page=${pageNum})}" class="page-link" th:text="${pageNum + 1}"></a>
+                </li>
+            </th:block>
+
+            <!-- 다음 페이지 버튼 -->
+            <li th:if="${tags.hasNext()}" class="page-item">
+                <a class="page-link" th:href="@{/tags/tagList(page=${tags.number + 1})}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<script>
+    // 부모 페이지로 선택한 작가 전달
+    function selectTag(tagId, tagName) {
+        // 부모 페이지의 input 요소에 선택된 값 전달
+        window.opener.document.getElementById('tagId').value = tagId;
+        window.opener.document.getElementById('tagName').value = tagName;
+        window.close(); // 팝업 창 닫기
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+### GET JWT no security 잘 동작함
+GET http://localhost:8410/auth/jwt
+Content-Type: application/json
+
+{
+  "id" : "test"
+}
+

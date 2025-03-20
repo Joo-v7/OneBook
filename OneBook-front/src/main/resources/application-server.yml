@@ -1,0 +1,5 @@
+server:
+  port: 10110
+
+onebook:
+  gatewayUrl: http://localhost:10112

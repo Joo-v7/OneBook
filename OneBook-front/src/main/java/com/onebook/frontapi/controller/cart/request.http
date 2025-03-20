@@ -1,0 +1,10 @@
+### 장바구니에 도서 담기 요청
+POST http://localhost:8110/cart
+Content-Type: application/xml
+
+<cart>
+    <bookId>1</bookId>
+    <quantity>1</quantity>
+</cart>
+
+

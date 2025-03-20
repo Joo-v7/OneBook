@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>1nebook - 포장지 선택</title>
+    <style>
+        table {
+            width: 50%;
+            margin: auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .btn {
+            margin-top: 10px;
+            padding: 8px 12px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<h1 style="text-align: center;">Packaging List</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Select</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!--    실제 포장지 리스트-->
+    <tr th:each="packaging : ${packagingList}">
+        <td th:text="${packaging.id}"></td>
+        <td th:text="${packaging.name}"></td>
+        <td th:text="${packaging.price}">"원"</td>
+        <td>
+            <!-- 데이터 속성을 사용하여 포장지 이름 전달 -->
+            <button type="button" class="btn"
+                    th:attr="data-packaging-id=${packaging.id},data-packaging-name=${packaging.name},data-packaging-price=${packaging.price}"
+                    onclick="handlePackagingSelection(this)">
+                선택
+            </button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<script>
+    function handlePackagingSelection(button) {
+        // data-packaging-name과 data-packaging-price 속성 값 읽기
+        const packagingId = button.getAttribute('data-packaging-id');
+        const packagingName = button.getAttribute('data-packaging-name');
+        const packagingPrice = button.getAttribute('data-packaging-price');
+        // 부모 창에 값 전달
+        window.opener.setPackaging(packagingId, packagingName, packagingPrice);
+        // 팝업창 닫기
+        window.close();
+    }
+</script>
+</body>
+</html>

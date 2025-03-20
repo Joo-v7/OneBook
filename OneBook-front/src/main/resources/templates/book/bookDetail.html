@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <!-- Meta Tag -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name='copyright' content=''>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Title Tag  -->
+    <title>1nebook - 도서 상세</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <!-- Web Font -->
+    <link
+            href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+            rel="stylesheet"
+    >
+
+    <!-- StyleSheet -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="/css/magnific-popup.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/css/font-awesome.css">
+    <!-- Fancybox -->
+    <link rel="stylesheet" href="/css/jquery.fancybox.min.css">
+    <!-- Themify Icons -->
+    <link rel="stylesheet" href="/css/themify-icons.css">
+    <!-- Nice Select CSS -->
+    <link rel="stylesheet" href="/css/niceselect.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="/css/animate.css">
+    <!-- Flex Slider CSS -->
+    <link rel="stylesheet" href="/css/flex-slider.min.css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="/css/owl-carousel.css">
+    <!-- Slicknav -->
+    <link rel="stylesheet" href="/css/slicknav.min.css">
+    <!-- Eshop StyleSheet -->
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+
+    <!-- Color CSS -->
+    <link rel="stylesheet" href="/css/color/color1.css">
+    <link rel="stylesheet" href="#" id="colors">
+
+    <style>
+        /* 리뷰 섹션 스타일 */
+        .ratting-main {
+            margin-bottom: 40px;
+            width: 100%;
+        }
+        .single-rating {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .rating-des h6 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .rating-des .ratings {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .rating-des .rating li {
+            color: #F7941D;
+            margin-right: 5px;
+        }
+        .rating-des p {
+            font-size: 14px;
+            color: #555;
+            word-wrap: break-word;
+            display: inline;
+        }
+        .image-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .image-preview a {
+            display: inline-block;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .image-preview img {
+            max-width: 100px;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .image-preview img:hover {
+            transform: scale(1.1);
+        }
+        .edit-btn {
+            background: #eee;
+            border: none;
+            color: #333;
+            padding: 3px 5px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+        .edit-btn:hover {
+            background: #ccc;
+        }
+        .toggle-more-btn {
+            margin-left:5px;
+            font-size:12px;
+            background:#eee;
+            border:none;
+            padding:3px 5px;
+            border-radius:3px;
+            cursor:pointer;
+        }
+        @media (max-width: 768px) {
+            .single-rating {
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+            }
+        }
+        #pagination span {
+            display:inline-block;
+            padding:5px 10px;
+            margin:0 5px;
+            background:#eee;
+            color:#333;
+            border-radius:3px;
+            cursor:pointer;
+        }
+        #like-button.liked i {
+            color: red;
+        }
+
+        #like-button i {
+            color: #000; /* 기본 색상 */
+            transition: color 0.3s ease;
+        }
+    </style>
+</head>
+<body class="js">
+<div th:replace="~{fragments/header :: header}"></div>
+
+
+<section class="shop single section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <!-- 왼쪽: 상품 이미지 -->
+                    <div class="col-lg-6 col-12">
+                        <div class="product-gallery">
+                            <div class="flexslider-thumbnails">
+                                        <img th:if="${url}" th:src="${url}" class="img-fluid" alt="책 이미지">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 오른쪽: 상품 설명 -->
+                    <div class="col-lg-6 col-12">
+                        <div class="product-des">
+                            <div class="short">
+                                <h4 th:text="${book?.title}">제목</h4>
+                                <!-- 평균 평점 및 리뷰 수 표시 영역 -->
+                                <div id="avg-rating-container" style="margin-bottom:10px;"></div>
+
+                                <p class="price">
+                                    <span th:text="${book?.salePrice != null ? #numbers.formatInteger(book.salePrice, 0, 'COMMA') + '원' : '0원'}">0원</span>
+                                    <s th:text="${book?.price != null ? #numbers.formatInteger(book.price, 0, 'COMMA') + '원' : '0원'}">$80.00</s>
+                                </p>
+                                <p class="description" th:text="${book?.description ?: '책 소개 내용이 없습니다.'}">책 소개 내용</p>
+                            </div>
+
+                            <p>3만원 이상 결제 시 배송비 무료!</p>
+                            <p>포인트 사용이 가능합니다.</p>
+
+                            <div class="product-buy">
+
+                                <div class="add-to-cart">
+
+                                    <!-- 김주혁 추가 start -->
+                                    <form action="/cart" method="POST" id="add-to-cart-form">
+                                        <input type="hidden" name="bookId" th:value="${book.bookId}">
+                                        <input type="hidden" name="quantity" id="hidden-quantity" value="1">
+                                        <button type="submit" class="btn">장바구니</button>
+                                    </form>
+                                    <!-- 김주혁 추가 end -->
+
+<!--                                    <a href="#" class="btn">장바구니</a>-->
+                                    <button
+                                            id="like-button"
+                                            class="btn min"
+                                            th:data-book-id="${book.bookId}"
+                                            data-liked="false">
+                                        <i class="ti-heart"></i>
+                                    </button>
+
+<!--                                    <a href="#" class="btn min"><i class="fa fa-compress"></i></a>-->
+                                </div>
+
+                                <form action="/order/register-form" method="post" id="order-form">
+
+                                    <div class="quantity">
+                                        <h6>구매 수량 :</h6>
+                                        <div class="input-group">
+                                            <div class="button minus">
+                                                <button type="button" class="btn btn-primary btn-number" data-type="minus">
+                                                    <i class="ti-minus"></i>
+                                                </button>
+                                            </div>
+                                            <input type="text" name="bookOrderRequests[0].quantity" class="input-number" id="quantity-input" data-min="1" th:data-max="${stock.stock}" value="1">
+                                            <div class="button plus">
+                                                <button type="button" class="btn btn-primary btn-number" data-type="plus">
+                                                    <i class="ti-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <input type="hidden" name="bookOrderRequests[0].bookId" th:value="${book.bookId}">
+                                    <input type="hidden" name="bookOrderRequests[0].quantity" th:value="${stock.stock}">
+                                    <input type="hidden" name="bookOrderRequests[0].price" th:value="${book.salePrice}">
+
+                                    <div style="margin-top:15px;">
+                                        <button class="btn btn-primary" id="pay-button">주문하기</button>
+                                    </div>
+                                </form>
+
+
+
+                                <p class="cat">
+                                    카테고리 :
+                                    <a th:href="@{/book-categories(categoryId=${category.categoryId})}"
+                                       th:text="${category.name}">
+                                    </a>
+                                </p>
+
+                                <p class="재고량">
+                                    재고 : <span th:text="${stock.stock}">0</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 리뷰 탭 -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="product-info">
+                            <div class="nav-main">
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#description" role="tab">Description</a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews</a></li>
+                                </ul>
+                            </div>
+                            <div class="tab-content" id="myTabContent">
+                                <!-- Description 탭 -->
+                                <div class="tab-pane fade show active" id="description" role="tabpanel">
+                                    <div class="tab-single">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="single-des">
+                                                    <ul>
+                                                        <li><p th:if="${author}">작가: <span th:text="${author.name}">작가명</span></p></li>
+                                                        <li><p th:if="${book?.publisher}">출판사: <span th:text="${book.publisher?.name}">출판사명</span></p></li>
+                                                        <li><p>출판일: <span th:text="${book?.pubdate != null ? #temporals.format(book.pubdate, 'yyyy-MM-dd') : '-'}">출판일</span></p></li>
+                                                        <li><p>판매량: <span th:text="${T(java.lang.String).format('%,d',book?.amount) ?: 0}">0</span></p></li>
+                                                        <li><p>책 소개: <span th:text="${book?.description ?: '책 소개 내용이 없습니다.'}">책 소개 내용</span> </p></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Reviews 탭 -->
+                                <div class="tab-pane fade" id="reviews" role="tabpanel">
+                                    <div class="tab-single">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="ratting-main" id="ratting-main"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /End Reviews Tab -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /리뷰 탭 끝 -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--&lt;!&ndash; Related Products (데모) &ndash;&gt;-->
+<!--<div class="product-area most-popular related-product section">-->
+<!--    <div class="container">-->
+<!--        <div class="row"><div class="col-12"><div class="section-title"><h2>예시) 같은 작가 책 모아보기</h2></div></div></div>-->
+<!--        <div class="row">-->
+<!--            <div class="col-12">-->
+<!--                <div class="owl-carousel popular-slider">-->
+<!--                    <div class="single-product">-->
+<!--                        <div class="product-img">-->
+<!--                            <a href="product-details.html">-->
+<!--                                <img class="default-img" src="https://via.placeholder.com/550x750" alt="#">-->
+<!--                                <img class="hover-img" src="https://via.placeholder.com/550x750" alt="#">-->
+<!--                                <span class="out-of-stock">Hot</span>-->
+<!--                            </a>-->
+<!--                            <div class="button-head">-->
+<!--                                <div class="product-action">-->
+<!--                                    <a data-toggle="modal" data-target="#exampleModal" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>-->
+<!--                                    <a href="#"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>-->
+<!--                                    <a href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>-->
+<!--                                </div>-->
+<!--                                <div class="product-action-2">-->
+<!--                                    <a href="#">Add to cart</a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="product-content">-->
+<!--                            <h3><a href="product-details.html">Black Sunglass For Women</a></h3>-->
+<!--                            <div class="product-price">-->
+<!--                                <span class="old">$60.00</span>-->
+<!--                                <span>$50.00</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash; ... 다른 상품들 ... &ndash;&gt;-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!-- JS Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-migrate-3.0.0.js"></script>
+<script src="/js/jquery-ui.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/colors.js"></script>
+<script src="/js/slicknav.min.js"></script>
+<script src="/js/owl-carousel.js"></script>
+<script src="/js/magnific-popup.min.js"></script>
+<script src="/js/facnybox.min.js"></script>
+<script src="/js/waypoints.min.js"></script>
+<script src="/js/finalcountdown.min.js"></script>
+<script src="/js/nicesellect.js"></script>
+<script src="/js/ytplayer.min.js"></script>
+<script src="/js/flex-slider.js"></script>
+<script src="/js/scrollup.js"></script>
+<script src="/js/onepage-nav.min.js"></script>
+<script src="/js/easing.js"></script>
+<script src="/js/active.js"></script>
+
+<script th:inline="javascript">
+
+    function maskId(id) {
+        if (!id) return '';
+        if (id.length >= 5) {
+            return id.substring(0,2) + '**' + id.substring(id.length - 2);
+        } else {
+            return id + '**';
+        }
+    }
+
+    function formatDateTime(isoString) {
+        if (!isoString) return '';
+        const date = new Date(isoString);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
+        const day = String(date.getDate()).padStart(2, '0');
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        return `${year}-${month}-${day} ${hours}:${minutes}`;
+    }
+
+    $(document).ready(function(){
+        $('.btn-number').click(function(e){
+            e.preventDefault();
+            var type = $(this).attr('data-type');
+            var input = $(this).closest('.input-group').find('.input-number');
+            var minValue = parseInt(input.attr('data-min')) || 1;
+            var maxValue = 1000000;
+            var currentVal = parseInt(input.val());
+
+            if (!isNaN(currentVal)) {
+                if(type === 'minus' && currentVal > minValue) {
+                    input.val(currentVal - 1).change();
+                }
+                if(type === 'plus' && currentVal < maxValue) {
+                    input.val(currentVal + 1).change();
+                }
+            } else {
+                input.val(minValue);
+            }
+        });
+
+        // 김주혁 - 추가 start: 첫 번째 quantity 값 변경 시 두 번째 폼에 동기화
+        $('#quantity-input').on('change', function() {
+            var quantity = $(this).val();
+            $('#hidden-quantity').val(quantity);
+        });
+        // 김주혁 - 추가 end
+
+    });
+
+    // 김주혁 - 추가 start: 장바구니 제출 return 값을 true/false로 받아서 그에 맞는 응답 처리.
+    $(document).ready(function () {
+        $('#add-to-cart-form').on('submit', function (e) {
+            e.preventDefault(); // 기본 폼 제출 방지
+
+            const form = $(this);
+            const url = form.attr('action'); // "/cart"
+            const data = form.serialize(); // 폼 데이터를 URL 인코딩된 문자열로 변환
+
+            $.post(url, data, function (response) {
+                // 서버에서 성공 여부를 true/false로 받는 경우 처리
+                if (response === true) { // 성공
+                    if (confirm('장바구니로 이동하시겠습니까?')) {
+                        window.location.href = '/cart'; // 장바구니 페이지로 이동
+                    }
+                } else { // 실패
+                    alert('장바구니 추가에 실패했습니다. 다시 시도해주세요.');
+                }
+            }).fail(function () {
+                // 요청 실패 처리
+                alert('서버 요청에 실패했습니다. 네트워크 상태를 확인해주세요.');
+            });
+        });
+    });
+    // 김주혁 - 추가 end: 장바구니 제출 return 값을 true/false로 받아서 그에 맞는 응답 처리.
+
+
+    const currentBookId = [[${book.bookId}]];
+    const reviewsPerPage = 5;
+    let currentPage = 1;
+    const previewLength = 100;
+    let reviewsData = [];
+
+    $(document).ready(function() {
+
+        // // (★) 결제하기 버튼 클릭 → /front/payments/checkout-page?orderId=..
+        // $("#pay-button").on("click", function(e){
+        //     e.preventDefault();
+        //
+        //     // 실제로는 서버에서 받은 orderId를 써야 함
+        //     // 여기서는 데모로 임시 orderId = 100
+        //     const orderId = "664400750282527613";
+        //     // 새 컨트롤러(CheckoutController) 경로로 이동
+        //     window.location.href = `/front/payments/checkout-page?orderId=${orderId}`;
+        // });
+
+
+        // 1) 평균 평점 호출
+        function loadAverageRating() {
+            fetch(`/front/reviews/${currentBookId}/average`,  {
+                method: "GET",
+                // credentials: "include"  // ★ JWT 쿠키 포함
+            })
+                .then(res => {
+                    if(!res.ok) { throw new Error('평균 평점 조회 실패'); }
+                    return res.json();
+                })
+                .then(avg => {
+                    displayAverageRatingAndCount(avg);
+                })
+                .catch(err => {
+                    console.error(err);
+                    $('#avg-rating-container').empty().append('<p>No rating available.</p>');
+                });
+        }
+
+
+        function displayAverageRatingAndCount(avg) {
+            let avgContainer = $('#avg-rating-container');
+            avgContainer.empty();
+
+            if(!avg || avg <= 0) {
+                let html = '<div class="rating-main"><p>No reviews yet.</p></div>';
+                avgContainer.append(html);
+                return;
+            }
+
+            function getStarIcons(avgRating) {
+                let fullStars = Math.floor(avgRating);
+                let fraction = avgRating - fullStars;
+                let stars = '';
+                for(let i=0; i<fullStars; i++){
+                    stars += '<li><i class="fa fa-star"></i></li>';
+                }
+                if(fraction >= 0.75){
+                    stars += '<li><i class="fa fa-star"></i></li>';
+                } else if(fraction >= 0.25){
+                    stars += '<li><i class="fa fa-star-half-o"></i></li>';
+                }
+                let usedSlots = (stars.match(/fa-star/g) || []).length;
+                for(let i=usedSlots; i<5; i++){
+                    stars += '<li class="dark"><i class="fa fa-star-o"></i></li>';
+                }
+                return stars;
+            }
+
+            let starIcons = getStarIcons(avg);
+            let avgDisplay = avg.toFixed(1);
+            let html = `
+				<div class="rating-main">
+					<ul class="rating">${starIcons}</ul>
+					<span style="margin-left:10px; font-size:14px; color:#F7941D;">${avgDisplay}</span>
+				</div>
+			`;
+            avgContainer.append(html);
+        }
+
+        // 2) 리뷰 목록 호출
+        function loadReviews(page=1, size=reviewsPerPage) {
+            let realPage = page - 1;
+            fetch(`/front/reviews/${currentBookId}?page=${realPage}&size=${size}`, {
+                method: "GET",
+                // credentials: "include"  // ★ JWT 쿠키 포함
+            })
+                .then(res => {
+                    if(!res.ok) { throw new Error('리뷰 조회 실패'); }
+                    return res.json();
+                })
+                .then(data => {
+                    reviewsData = data.content;
+                    currentPage = page;
+                    renderReviews(data);
+                })
+                .catch(err => {
+                    console.error(err);
+                    $('#ratting-main').empty().append('<p>리뷰를 불러오는 중 오류가 발생했습니다.</p>');
+                });
+        }
+
+        function renderReviews(pageData) {
+            let rattingMain = $('#ratting-main');
+            rattingMain.empty();
+
+            if(!pageData || !pageData.content || pageData.content.length === 0){
+                rattingMain.append('<p>작성된 리뷰가 없습니다.</p>');
+                $('#pagination').remove();
+                return;
+            }
+
+            let reviews = pageData.content;
+            let totalPages = pageData.totalPages;
+            let pageNumber = pageData.number;
+
+            reviews.forEach(function(review) {
+                let starsHtml = '';
+                for(let i=1; i<=5; i++){
+                    starsHtml += (i <= review.grade)
+                        ? '<li><i class="fa fa-star"></i></li>'
+                        : '<li><i class="fa fa-star-o"></i></li>';
+                }
+
+                let imagesHtml = '';
+                if(review.imageUrl && review.imageUrl.length > 0){
+                    imagesHtml += '<div class="image-preview">';
+                    review.imageUrl.forEach(function(imgSrc){
+                        imagesHtml += `<a href="${imgSrc}" target="_blank"><img src="${imgSrc}" alt="리뷰 이미지"></a>`;
+                    });
+                    imagesHtml += '</div>';
+                }
+
+                let timeText = review.updatedAt
+                    ? formatDateTime(review.updatedAt) + ' (수정됨)'
+                    : formatDateTime(review.createdAt);
+                let fullMessage = review.description;
+                let displayMessage = fullMessage;
+                let toggleBtnHtml = '';
+
+                if(fullMessage.length > previewLength) {
+                    displayMessage = fullMessage.substring(0, previewLength) + '...';
+                    toggleBtnHtml = `<button class="toggle-more-btn">더보기</button>`;
+                }
+                let maskedId = maskId(review.loginId);
+
+                let singleRating = `
+					<div class="single-rating">
+						<div class="rating-des">
+							<h6>ID: ${maskedId}
+								<span style="font-size:12px; color:#999; margin-left:10px;">${timeText}</span>
+							</h6>
+							<div class="ratings">
+								<ul class="rating">${starsHtml}</ul>
+							</div>
+							<p class="review-text" data-full="${encodeURIComponent(fullMessage)}">${displayMessage}</p>
+							${toggleBtnHtml}
+							${imagesHtml}
+						</div>
+					</div>
+				`;
+                rattingMain.append(singleRating);
+            });
+
+            renderPagination(totalPages, pageNumber+1);
+        }
+
+        function renderPagination(totalPages, currentPage) {
+            $('#pagination').remove();
+            if(totalPages <= 1) return;
+
+            let paginationHtml = `<div id="pagination" style="text-align:center; margin-top:20px;">`;
+            for(let i=1; i<=totalPages; i++){
+                if(i === currentPage){
+                    paginationHtml += `<span style="display:inline-block; padding:5px 10px; margin:0 5px; background:#333; color:#fff; border-radius:3px; cursor:pointer;">${i}</span>`;
+                } else {
+                    paginationHtml += `<span class="page-btn" data-page="${i}" style="display:inline-block; padding:5px 10px; margin:0 5px; background:#eee; color:#333; border-radius:3px; cursor:pointer;">${i}</span>`;
+                }
+            }
+            paginationHtml += `</div>`;
+            $('#ratting-main').after(paginationHtml);
+        }
+
+        $(document).on('click', '.page-btn', function(){
+            let page = parseInt($(this).data('page'), 10);
+            loadReviews(page, reviewsPerPage);
+        });
+
+        $(document).on('click', '.toggle-more-btn', function(){
+            let p = $(this).siblings('.review-text');
+            let fullMessage = decodeURIComponent(p.data('full'));
+            if($(this).text() === '더보기') {
+                p.text(fullMessage);
+                $(this).text('접기');
+            } else {
+                if(fullMessage.length > previewLength) {
+                    p.text(fullMessage.substring(0,previewLength) + '...');
+                    $(this).text('더보기');
+                } else {
+                    p.text(fullMessage);
+                    $(this).hide();
+                }
+            }
+        });
+
+        // 탭 전환 (Reviews 탭 열릴 때마다 로드)
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            let target = $(e.target).attr("href");
+            if(target === '#reviews'){
+                loadReviews();
+            }
+        });
+
+        // 초기 평균 평점 로드
+        loadAverageRating();
+        // (Reviews 탭을 눌러야 리뷰 목록이 보임)
+    });
+
+
+    document.addEventListener("DOMContentLoaded", async () => {
+        const likeButton = document.querySelector("#like-button");
+        if (likeButton) {
+            const bookId = likeButton.getAttribute("data-book-id");
+            try {
+                const response = await fetch(`/like/check?bookId=${bookId}`);
+                if (response.ok) {
+                    const isLiked = await response.json();
+                    if (isLiked) {
+                        likeButton.classList.add("liked");
+                        likeButton.setAttribute("data-liked", "true");
+                    }
+                }
+            } catch (error) {
+                console.error("좋아요 상태 확인 중 오류 발생:", error);
+            }
+        }
+
+        document.addEventListener("click", async (event) => {
+            if (event.target.closest("#like-button")) {
+                const likeButton = event.target.closest("#like-button");
+                const bookId = likeButton.getAttribute("data-book-id");
+
+                try {
+                    const response = await fetch(`/like?bookId=${bookId}`, {
+                        method: "GET",
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    });
+
+                    if (response.ok) {
+                        const newLikeState = await response.json();
+                        console.log("서버 응답:", newLikeState);
+
+                        if (newLikeState) {
+                            likeButton.classList.add("liked");
+                        } else {
+                            likeButton.classList.remove("liked");
+                        }
+
+                        likeButton.setAttribute("data-liked", newLikeState);
+                    } else {
+                        console.error("서버 응답 에러:", response.status);
+                        alert("좋아요 상태를 변경할 수 없습니다.");
+                    }
+                } catch (error) {
+                    console.error("상세 에러:", error);
+                    alert("로그인이 필요합니다.");
+                }
+            }
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
