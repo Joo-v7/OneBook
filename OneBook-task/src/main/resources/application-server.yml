@@ -1,0 +1,27 @@
+server:
+  port: 10116  # 프로덕션 환경에서 사용할 포트
+  shutdown: graceful
+
+  # DB
+spring:
+  datasource:
+    url: jdbc:mysql://10.116.64.14:13306/project_be8_onebook_db?useSSL=false&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
+    username: project_be8_onebook
+    password: vH6NDX810*pgNQqs
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://admin:1234@localhost:10113/eureka
+  instance:
+    prefer-ip-address: true
+
+#db:
+#  ip: 10.116.64.14
+#  port: 13306
+#  dbName: project_be8_onebook_db
+#  userName: project_be8_onebook
+#  password: vH6NDX810*pgNQqs
+

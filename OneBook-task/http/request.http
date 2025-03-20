@@ -1,0 +1,290 @@
+########################################################################
+### 0) (선택) Category 등록
+###   만약 BookService에서 자동 생성/조회하지 않고,
+###   "이미 카테고리가 DB에 있어야"만 연결이 가능하다면,
+###   아래처럼 사전에 직접 카테고리를 생성할 수도 있음.
+########################################################################
+POST http://localhost:8510/task/categories
+Content-Type: application/json
+
+{
+  "categoryName": "NHN Academy",
+  "category": {
+    "categoryId": 1,
+    "name": "Java"
+  }
+}
+
+#############################################################################
+### Author(작가) 등록
+#############################################################################
+POST http://localhost:8510/task/author/asdf
+
+
+#############################################################################
+### Tag(태그) 등록
+#############################################################################
+POST http://localhost:8510/task/books/tags
+Content-Type: application/json
+
+{
+  "tagName": "Project Tag"
+}
+
+
+
+###
+### 예시 응답:
+### {
+###   "tagId": 1,
+###   "tagName": "베스트셀러"
+### }
+
+
+###
+### 예시 응답:
+### {
+###   "categoryId": 1,
+###   "name": "IT/컴퓨터",
+###   "parentCategory": null
+### }
+
+
+########################################################################
+### 1) Role 생성 (USER)
+########################################################################
+POST http://localhost:8510/task/roles
+Content-Type: application/json
+
+{
+  "name": "USER",
+  "description": "일반 사용자 역할"
+}
+
+###
+### 응답 예시:
+### {
+###   "id": 1,
+###   "name": "USER",
+###   "description": "일반 사용자 역할"
+### }
+
+
+########################################################################
+### 2) Role 생성 (ADMIN) [선택]
+########################################################################
+POST http://localhost:8510/task/roles
+Content-Type: application/json
+
+{
+  "name": "ADMIN",
+  "description": "관리자 역할"
+}
+
+
+########################################################################
+### 3) Grade 생성 (BASIC)
+########################################################################
+POST http://localhost:8510/task/grades
+Content-Type: application/json
+
+{
+  "name": "BASIC",
+  "accumulationRate": 1,
+  "description": "기본 등급"
+}
+
+
+########################################################################
+### 4) Member(회원) 등록
+########################################################################
+POST http://localhost:8510/task/members
+Content-Type: application/json
+
+{
+  "name": "홍길동",
+  "loginId": "hong123",
+  "password": "pass12341234",
+  "dateOfBirth": "1995-01-01",
+  "gender": "M",
+  "email": "hong@example.com",
+  "phoneNumber": "010-1111-2222"
+}
+
+###
+### 응답 예시 => memberId(TSID 등) 확인
+### {
+###   "id": 659219841608987391,
+###   "name": "홍길동",
+###   "loginId": "hong123",
+###   ...
+### }
+
+
+########################################################################
+### 5) Publisher(출판사) 등록
+###   (PathVariable로 받는 구조 가정)
+########################################################################
+POST http://localhost:8510/task/publisher/testPublisher
+
+###
+### 응답 예시:
+### {
+###   "publisherId": 1,
+###   "name": "testPublisher"
+### }
+
+
+########################################################################
+### 6) Book(도서) 등록
+###   -> 'POST /book'
+###   -> BookSaveDTO 구조
+###   -> isbn13은 13자리 필수
+###   -> content 필드는 질문 코드상 Book 엔티티에 있으나,
+###      BookSaveDTO엔 없을 수도 있음.
+###      (실제 코드에서 어떻게 처리되는지 주의)
+########################################################################
+
+POST http://localhost:8510/task/book
+Content-Type: application/json
+
+{
+  "title": "테스트 도서",
+  "content": "테스트 내용",
+  "authorName": "테스트 저자",
+  "pubdate": "2023-01-02",
+  "description": "테스트 도서 설명",
+  "isbn13": "1234567890123",
+  "priceSales": 14000,
+  "price": 15000,
+
+  "categoryName": "NHN Academy",
+  "category": {
+    "categoryId": 1,
+    "name": "Java"
+  },
+
+  "publisherName": "작가",
+  "salesPoint": 0,
+  "tagName": "태그",
+  "imageUrl": "http://example.com/testBookCover.jpg"
+}
+
+
+###
+### 응답 예시:
+### {
+###   "bookId": 1,
+###   "title": "테스트 도서",
+###   ...
+### }
+
+#############################################################################
+### Stock(재고) 등록
+#############################################################################
+POST http://localhost:8510/task/stock
+Content-Type: application/json
+
+{
+  "bookId": 4,
+  "amount": 50
+}
+
+###
+### 응답 예시:
+### {
+###   "stockId": 1,
+###   "book": { ... },
+###   "stock": 50
+### }
+
+###
+### A) PointPolicy (포인트 정책) 등록
+###    -> 'POST /member/admin/point-policies'
+###
+POST http://localhost:8510/task/member/admin/point-policies
+Content-Type: application/json
+
+{
+  "pointPolicyName": "리뷰 포인트 정책",
+  "pointPolicyConditionAmount": 0,
+  "pointPolicyRate": 5,
+  "pointPolicyApplyAmount": 100,
+  "pointPolicyCondition": "리뷰 작성 시 포인트 100적립",
+  "pointPolicyApplyType": true,
+  "pointPolicyCreatedAt": "2023-01-01",
+  "pointPolicyUpdatedAt": null,
+  "pointPolicyState": true,
+  "memberId": 660007330964353825
+}
+
+
+###
+### B) 특정 포인트 정책 조회
+###    -> 'GET /member/admin/point-policies/{pointPolicyId}'
+###
+GET http://localhost:8510/task/member/admin/point-policies/1
+
+
+###
+### C) 모든 포인트 정책 조회 (페이지네이션)
+###    -> 'GET /member/admin/point-policies?page=0&size=5'
+###
+GET http://localhost:8510/task/member/admin/point-policies?page=0&size=5
+
+
+
+
+########################################################################
+### 7) 리뷰 등록
+###   -> 'POST /task/books/{bookId}/reviews'
+########################################################################
+POST http://localhost:8510/task/books/1/reviews
+Content-Type: application/json
+
+{
+  "memberId": 660284061340906480,
+  "bookId": 1,
+  "grade": 5,
+  "description": "리뷰 작성입니다."
+}
+
+###
+### 응답 예시:
+### {
+###   "reviewId": 10,
+###   "grade": 5,
+###   "description": "...",
+###   "memberId": 659219841608987391,
+###   "bookId": 1,
+###   "imageUrl": [...]
+### }
+
+
+########################################################################
+### 8) 리뷰 수정
+###   -> 'PUT /task/books/{bookId}/reviews/{reviewId}'
+########################################################################
+PUT http://localhost:8510/task/books/1/reviews/1
+Content-Type: application/json
+
+{
+  "memberId": 660284061340906480,
+  "grade": 4,
+  "description": "리뷰 수정했습니다.",
+  "imageUrl": ["abc.com", "asdf.com", "asdfg.com"]
+}
+
+
+########################################################################
+### 9) 리뷰 조회 (페이지네이션)
+###   -> 'GET /task/books/{bookId}/reviews?page=0&size=5'
+########################################################################
+GET http://localhost:8510/task/books/1/reviews?page=0&size=5
+
+
+########################################################################
+### 10) 리뷰 평점 평균
+###   -> 'GET /task/books/{bookId}/reviews/average'
+########################################################################
+GET http://localhost:8510/task/books/1/reviews/average

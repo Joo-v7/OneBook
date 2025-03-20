@@ -1,0 +1,241 @@
+### Regular 회원 등급 등록
+POST http://localhost:8080/task/grades
+Content-type: application/json
+
+{
+  "name": "REGULAR",
+  "accumulationRate": 10,
+  "description": "일반 등급"
+}
+
+### 전체 회원 등급 조회
+GET http://localhost:8080/task/grades
+
+### 단일 회원 등급 조회 by id
+GET http://localhost:8080/task/grades/1
+
+### 회원 등급 등록 중복 등록 테스트
+POST http://localhost:8080/task/grades
+Content-type: application/json
+
+{
+  "name": "REGULAR",
+  "accumulationRate": 10,
+  "description": "일반 등급"
+}
+
+### DTO Validate 검증: 마이너스 적립률 등록
+POST http://localhost:8080/task/grades
+Content-type: application/json
+
+{
+  "name": "ROYAL",
+  "accumulationRate": -1,
+  "description": "로얄 등급"
+}
+
+### 등급 수정
+PUT http://localhost:8080/task/grades/1
+Content-type: application/json
+
+{
+  "name": "REGULAR",
+  "accumulationRate": 100,
+  "description": "일반 등급"
+}
+
+### 삭제용 Regular 회원 등급 등록
+POST http://localhost:8080/task/grades
+Content-type: application/json
+
+{
+  "name": "TEST",
+  "accumulationRate": 10,
+  "description": "일반 등급"
+}
+
+### 등급 삭제
+DELETE http://localhost:8080/task/grades/2
+Content-type: application/json
+
+########################################################################################################################
+
+### Role 등록
+POST http://localhost:8080/task/roles
+Content-Type: application/json
+
+{
+  "name": "MEMBER",
+  "description": "일반 회원입니다"
+}
+
+### 전체 Role 조회
+GET http://localhost:8080/task/roles
+
+### 단일 Role 조회
+GET http://localhost:8080/task/roles/1
+
+### role 등록 중복 테스트
+POST http://localhost:8080/task/roles
+Content-Type: application/json
+
+{
+  "name": "MEMBER",
+  "description": "일반 회원입니다."
+}
+
+### role Validation 검증
+POST http://localhost:8080/task/roles
+Content-type: application/json
+
+{
+  "name": "일반 회원입니다일반 회원입니다",
+  "description": "일반 회원입니다."
+}
+
+### Test Role 등록
+POST http://localhost:8080/task/roles
+Content-Type: application/json
+
+{
+  "name": "TEST",
+  "description": "일반 회원입니다"
+}
+
+### Test Role 수정
+PUT http://localhost:8080/task/roles/2
+Content-type: application/json
+
+{
+  "name": "TEST2",
+  "description": "테스트 회원입니다"
+}
+
+### role 삭제
+DELETE http://localhost:8080/task/roles/2
+
+############################################################################################################
+
+### 회원 가입
+POST http://localhost:8080/task/members
+Content-type: application/json
+
+{
+  "name": "김주혁",
+  "loginId": "joo",
+  "password": "jjjjjjjjjj",
+  "dateOfBirth": "1998-12-18",
+  "gender": "M",
+  "email" : "helloworld@gmail.com",
+  "phoneNumber": "010-3082-2878"
+}
+
+### 테스트용 전체 멤버 조회
+GET http://localhost:8080/task/members/list?page=0&size=10
+
+### 중복 회원 가입 검증
+POST http://localhost:8080/task/members
+Content-type: application/json
+
+{
+  "name": "김주혁",
+  "loginId": "joo",
+  "password": "jjjjjjjjjj",
+  "dateOfBirth": "1998-12-18",
+  "gender": "M",
+  "email" : "helloworld@gmail.com",
+  "phoneNumber": "010-3082-2878"
+}
+
+### DTO validation 검증
+POST http://localhost:8080/task/members
+Content-type: application/json
+
+{
+  "name": "Joo***",
+  "loginId": "jooasjflsajklfasjlf**",
+  "password": "joo",
+  "dateOfBirth": "1998-12-18",
+  "gender": "M",
+  "email" : "helloworld@gmail.com",
+  "phoneNumber": "010-3082-2878"
+}
+
+### 회원 정보 수정
+PUT http://localhost:8080/task/members
+Content-type: application/json
+X-MEMBER-ID: 658827612399977103
+
+{
+  "name": "수정",
+  "loginId": "joo",
+  "password": "jjjjjjjjjj",
+  "dateOfBirth": "1998-12-18",
+  "gender": "M",
+  "email" : "helloworld@gmail.com",
+  "phoneNumber": "010-3082-2878"
+}
+
+### 삭제 테스트용 회원 가입
+POST http://localhost:8080/task/members
+Content-type: application/json
+X-MEMBER-ID: 658827612399977103
+
+{
+  "name": "삭제용",
+  "loginId": "aaa",
+  "password": "aaaaaaaaaa",
+  "dateOfBirth": "1998-12-18",
+  "gender": "M",
+  "email" : "helloworl@gmail.com",
+  "phoneNumber": "010-3081-2878"
+}
+
+### 회원 삭제
+DELETE http://localhost:8080/task/members/cd0d2af5-c05b-46a8-a2ab-945f4f7f7927
+
+########################################################################################################################
+
+### 로그인
+POST http://localhost:8080/task/auth/login
+Content-type: application/json
+
+{
+  "loginId": "joo",
+  "password": "jjjjjjjjjj"
+}
+
+### 로그인 실패 1 - id
+POST http://localhost:8080/task/auth/login
+Content-type: application/json
+
+{
+  "loginId": "ooj",
+  "password": "jjjjjjjjjj"
+}
+
+### 로그인 실패 1 - pw
+POST http://localhost:8080/task/auth/login
+Content-type: application/json
+
+{
+  "loginId": "joo",
+  "password": "ooj"
+}
+
+### 로그인 실패 3 - 삭제된 회원 조회
+POST http://localhost:8080/task/auth/login
+Content-type: application/json
+
+{
+  "loginId": "aaa",
+  "password": "ooj"
+}
+
+### 멤버 순수 구매 금액 조회
+GET http://localhost:8510/task/members/payments/net-amount
+X-MEMBER-ID: 667888669764456953
+
+### 멤버 조회
+GET http://localhost:8510/task/members
+X-MEMBER-ID: 667888669764456953

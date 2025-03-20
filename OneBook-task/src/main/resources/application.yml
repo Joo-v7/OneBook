@@ -1,0 +1,82 @@
+spring:
+  application:
+    name: task-service
+  messages:
+    basename: messages/messages
+    encoding: UTF-8
+    use-code-as-default-message: false
+    fallback-to-system-locale: false
+    cache-duration: 3600
+    always-use-message-format: true
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+# DB
+  datasource:
+    url: jdbc:mysql://220.67.216.14:13306/project_be8_onebook_db?useSSL=false&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
+    username: project_be8_onebook
+    password: vH6NDX810*pgNQqs
+
+
+server:
+  port: 8500  # 프로덕션 환경에서 사용할 포트
+  shutdown: graceful
+
+# eureka 설정
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://admin:1234@localhost:8300/eureka
+  instance:
+    prefer-ip-address: true
+
+# 이미지 파일 업로드 경로 설정 (prod 환경에서는 S3 등 사용)
+image:
+  upload-dir: s3://your-bucket-name/images/  # prod 환경에서는 S3 버킷 경로 사용
+  appkey: bgi6iWmF4yYnwQoo
+  secretkey: 5eV2wK0nslCUu42AwIFNiEhKLThoDK4H
+# 파일 업로드 크기 제한 설정
+servlet:
+  multipart:
+    max-file-size: 10MB  # 최대 파일 크기
+    max-request-size: 10MB  # 최대 요청 크기
+    enabled: true
+
+nhnKey:
+  url: https://api-keymanager.nhncloudservice.com
+  appKey: qTQNj7LyHhdAazH3
+  keyPath: 1nebook.p12
+  password: 1nebook
+  keyId: 7b34378ad2034b71b2037ca9b1538d41
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  info:
+    env:
+      enabled: true
+
+#db:
+#  ip: 10.116.64.14
+#  port: 13306
+#  dbName: project_be8_onebook_db
+#  userName: project_be8_onebook
+#  password: vH6NDX810*pgNQqs
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    groups-order: DESC
+    operations-sorter: method
+    disable-swagger-default-url: true
+  packages-to-scan: com.nhnacademy.taskapi  # 컨트롤러 패키지 경로 지정

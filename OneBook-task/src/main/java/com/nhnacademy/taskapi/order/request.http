@@ -1,0 +1,55 @@
+### Regular 회원 등급 등록
+POST http://localhost:8080/grades
+Content-type: application/json
+
+{
+  "name": "REGULAR",
+  "accumulationRate": 10,
+  "description": "일반 등급"
+}
+
+### Role 등록
+POST http://localhost:8080/roles
+Content-Type: application/json
+
+{
+  "name": "MEMBER",
+  "description": "일반 회원입니다"
+}
+
+### 회원 가입
+POST http://localhost:8080/members
+Content-type: application/json
+
+{
+  "name": "김선준",
+  "loginId": "tjswns",
+  "password": "jjjjjjjjjj",
+  "dateOfBirth": "1998-12-18",
+  "gender": "M",
+  "email" : "helloworld@gmail.com",
+  "phoneNumber": "010-3082-2878"
+}
+
+############################################################################################################
+
+### 주문 리스트 조회
+GET http://localhost:8080/orders
+X-MEMBER-ID: tjswns
+
+### 주문 등록
+POST http://localhost:8080/orders
+X-MEMBER-ID: tjswns
+Content-Type: application/json
+
+{
+  "orderer": "김선준",
+  "phoneNumber": "010-94856730",
+  "dateTime": "1998-12-18",
+  "deliveryPrice": 1500,
+  "totalPrice": 15000
+}
+
+############################################################################################################
+
+### 주문

@@ -1,0 +1,64 @@
+### 정률정책 for Book 등록
+POST localhost:8510/task/coupon/rate/book
+Content-Type: application/json
+
+{
+  "count":10,
+  "policyId": 3
+}
+
+### 정률정책 for Category 등록
+POST localhost:8510/task/coupon/rate/category
+Content-Type: application/json
+
+{
+"count":10,
+"policyId": 1
+}
+
+### 정액정책 for Book 등록
+POST localhost:8510/task/coupon/price/book
+Content-Type: application/json
+
+{
+  "count":10,
+  "policyId": 7
+}
+
+### 정액정책 for Category 등록
+POST localhost:8510/task/coupon/price/category
+Content-Type: application/json
+
+{
+  "count":10,
+  "policyId": 8
+}
+
+### 쿠폰삭제
+DELETE localhost:8510/task/coupon/8529d05c-6705-4899-8bcf-aeecb451150b
+
+### 쿠폰발급
+POST localhost:8510/task/coupon/issue
+Content-Type: application/json
+
+{
+ "couponNumber": "2cbc1add-ed1b-40f5-8493-4197d5f989ff",
+  "memberId": 662829385225167686
+}
+
+### 쿠폰발급
+POST localhost:8510/task/coupon/issue
+Content-Type: application/json
+
+{
+  "couponNumber": "2cbc1add-ed1b-40f5-8493-4197d5f989ff",
+  "memberId": 662839895941817076
+}
+
+### 사용되고 있는 정책 조회
+GET localhost:8510/task/policies/using
+
+### 특정 책에 적용할 사용자의 모든 쿠폰 조회
+GET localhost:8510/task/coupon/apply/107
+X-MEMBER-ID: 667977927739216529
+
