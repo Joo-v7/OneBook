@@ -8,8 +8,10 @@
 > 
 > Java 기반의 Spring Framework를 활용하여, 온라인에서 도서를 쉽게 구매할 수 있는 직관적이고 종합적인 인터넷 서점 쇼핑몰
 >
-> [쇼핑몰 주소](https://1nebook.shop/) - https://1nebook.shop/
+> 쇼핑몰 주소: https://1nebook.shop/
+> 
 > 사용자 - ID: kimsj, Pw: kimsjkimsj1!
+> 
 > 관리자 - ID: admin, PW: adminadmin1!
 > 
 > [OneBook Github Organization](https://github.com/nhnacademy-be8-OneBook)
