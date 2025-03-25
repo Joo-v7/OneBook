@@ -169,6 +169,3 @@ https://www.erdcloud.com/d/PoKgPpyiHAvGwdsNA
 ## front template
 
 [front template 주황색 ](https://wpthemesgrid.com/themes/eshop/index4.html)
-
-##
-- 개발기간 : 2024.12.02 ~ 2025.01.24
